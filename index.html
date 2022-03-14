@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="script.js">
-    <title>Document</title>
+    <title>Mesto</title>
 </head>
 
 <body class="root">
@@ -17,26 +17,32 @@
 
         <header class="header">
             <a class="header__logo" href="#" target="_self"></a>
-            <div class="line"></div>
         </header>
 
         <main class="content">
 
             <section class="profile">
-                <img class="avatar" src="./images/Avatar.svg">
-                <div class="profile-info">
-                    <h1 class="h1">Жак-Ив Кусто</h1>
-                    <p class="p">Исследователь океана</p>
+                <img class="profile__avatar" src="./images/Avatar.svg">
+                <div class="profile__info">
+                    <h1 class="profile__h1">Жак-Ив Кусто</h1>
+                    <p class="profile__p">Исследователь океана</p>
                 </div>
-                <button class="button"></button>
+                <button class="profile__edit">
+                    <img class="profile__pen" src="./images/pen.svg" alt="">
+                </button>
+                <button class="profile__button">
+                    <img class="profile__img" src="./images/Vector+.svg" alt="">
+                </button>
             </section>
 
             <section class="elements">
                 <div class="element">
-                    <img src="" alt="">
-                    <div class="info">
-                        <h2>Бла-бла-бла</h2>
-                        <div class="like"></div>
+                    <img class="element__image" src="./images/Карачаевск.png" alt="">
+                    <div class="element__info">
+                        <h2 class="element__h2">Бла-бла-бла</h2>
+                        <button class="element__like">
+                            <img src="./images/hart.svg" alt="">
+                        </button>
                     </div>
                 </div>
             </section>
