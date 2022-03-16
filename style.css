@@ -1,6 +1,6 @@
 /* outline: rgb(55, 55, 61) 1px solid; */
 
-@import url(./fonts/inter.css);
+/* @import url(./fonts/inter.css); */
 
 .root {
     margin: 0;
@@ -295,11 +295,21 @@
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    padding: 153px 33% 0;
+    padding: 194px 33% 0;
 
 }
 
-.popup__close
+.popup__container {
+    position: relative;
+}
+
+.popup__close {
+    position: absolute;
+    background-color: #000000;
+    border: none;
+    top: -43px;
+    left: 430px;
+}
 
 .popup__profile {
     position: relative;
@@ -327,6 +337,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
+    border-bottom: none;
 }
 
 .popup__name {
