@@ -26,13 +26,13 @@
                 <div class="profile__info">
                     <div class="profile__title">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button class="profile__edit">
+                        <button class="profile__edit" aria-label="Редактировать профиль">
                             <img class="profile__pen" src="./images/Edit Button pen.png" alt="">
                         </button>
                     </div>
                     <p class="profile__hobby">Исследователь океана</p>
                 </div>
-                <button class="profile__button">
+                <button class="profile__button" aria-label="Добавить">
                     <img class="profile__img" src="./images/Vector+.svg" alt="">
                 </button>
             </section>
@@ -43,10 +43,10 @@
                     <img class="element__image" src="./images/Карачаевск.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Карачаевск</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -56,10 +56,10 @@
                     <img class="element__image" src="./images/Эльбрус.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -69,10 +69,10 @@
                     <img class="element__image" src="./images/Домбай.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -82,10 +82,10 @@
                     <img class="element__image" src="./images/Эльбрус.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -95,10 +95,10 @@
                     <img class="element__image" src="./images/Домбай.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -108,10 +108,10 @@
                     <img class="element__image" src="./images/Карачаевск.png" alt="">
                     <div class="element__info">
                         <h2 class="element__title">Карачаево-Черкессия</h2>
-                        <button class="element__like element__like">
+                        <button class="element__like element__like" aria-label="Сердечко">
                             <img src="./images/hart.svg" alt="">
                         </button>
-                        <button class="element__like element__like_active">
+                        <button class="element__like element__like_active" aria-label="Сердечко">
                             <img src="./images/black-hard.png" alt="">
                         </button>
                     </div>
@@ -123,6 +123,18 @@
         <footer class="footer">
             <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
+    </div>
+
+    <div class="popup">
+        <div class="popup__container">
+            <button class="popup__close">
+                <img src="./images/Save button.png" alt="Крастик для закрытия формы">
+            </button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input class="popup__name" type="text">
+            <input class="popup__hobby" type="text">
+            <button class="popup__save">Сохранить</button>
+        </div>
     </div>
 
 </body>
