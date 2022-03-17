@@ -1,7 +1,5 @@
 /* outline: rgb(55, 55, 61) 1px solid; */
 
-/* @import url(./fonts/inter.css); */
-
 .root {
     margin: 0;
     padding: 0;
@@ -291,12 +289,19 @@
 .popup {
     position: fixed;
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    padding: 194px 33% 0;
+    overflow: hidden;
+    padding-top: 195px;
+}
 
+@media screen and (max-width: 650px) {
+    .popup {
+        padding-top: 123px;
+    }
 }
 
 .popup__container {
@@ -305,30 +310,63 @@
 
 .popup__close {
     position: absolute;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     top: -43px;
     left: 430px;
+    transition: opacity .2s ease;
+}
+
+.popup__close:hover {
+    cursor: pointer;
+    opacity: 60%;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__close {
+        top: -37px;
+        left: 255px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .popup__img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .popup__profile {
-    position: relative;
-    /* display: flex;
-    flex-direction: column; */
     padding: 34px 36px 0;
     width: 430px;
-    height: 330px;
+    min-height: 330px;
     background-color: #fff;
     border-radius: 10px;
     box-sizing: border-box;
 }
 
+@media screen and (max-width: 650px) {
+    .popup__profile {
+        width: 282px;
+        min-height: 330px;
+        padding: 25px 22px 0;
+    }
+}
+
 .popup__title {
     font-style: normal;
-    margin: 0 0 54px;
+    margin: 0 0 44px;
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__title {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 75px;
+    }
 }
 
 .popup__info {
@@ -337,15 +375,20 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    border-bottom: none;
 }
 
 .popup__name {
-    margin-bottom: 30px;  
+    margin-bottom: 28px;
+    min-height: 27px;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .popup__hobby {
-    margin-bottom: 48px;
+    margin-bottom: 47px;
+    min-height: 27px;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .popup__save {
@@ -356,4 +399,19 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    border: 0;
+    border-radius: 2px;
+    transition: opacity .2s ease;
+}
+
+.popup__save:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__save {
+        min-height: 46px;
+        min-width: 238px;
+    }
 }
