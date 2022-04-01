@@ -1,42 +1,4 @@
-
-
-
-
-.footer {
-    display: flex;
-    color: #545454;
-}
-
-@media screen and (max-width: 845px) {
-    .footer {
-        justify-content: space-evenly;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .footer {
-        justify-content: start;
-        margin-left: 19px;
-    }
-}
-
-
-.footer__copyright {
-    margin: 0;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-}
-
-@media screen and (max-width: 650px) {
-    .footer__copyright {
-        font-size: 14px;
-        line-height: 17px;
-    }
-}
-
-.popup__display-none {
+.popup_display-none {
     visibility: hidden;
 } 
 

@@ -1,0 +1,17 @@
+.footer {
+    display: flex;
+    color: #545454;
+}
+
+@media screen and (max-width: 845px) {
+    .footer {
+        justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer {
+        justify-content: start;
+        margin-left: 19px;
+    }
+}
