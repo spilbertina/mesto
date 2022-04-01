@@ -1,23 +1,4 @@
-.root {
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    font-family: 'Inter', Arial, sans-serif;
-}
 
-.page {
-    color: #fff;
-    min-width: 320px;
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 45px 0 60px;
-}
-
-@media screen and (max-width: 650px) {
-    .page {
-        padding: 28px 0 36px;
-    }
-}
 
 .header {
     display: flex;
