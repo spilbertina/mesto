@@ -1,33 +1,5 @@
 
 
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    margin: 0 auto 40px;
-    max-width: 1184px;
-    border-bottom: solid 1px #545454;
-    box-sizing: border-box;
-}
-
-.header__logo {
-    min-width: 142px;
-    min-height: 33px;
-    background-image: url(./images/VectorLogo.svg);
-    margin-bottom: 41px;
-    background-repeat: no-repeat;
-}
-
-@media screen and (max-width: 650px) {
-    .header__logo {
-        background-image: url(./images/logo-small.svg);
-        min-width: 104px;
-        min-height: 24px;
-        margin-bottom: 32px;
-        margin-left: 27px;
-    }
-}
-
 .profile {
     display: flex;
     align-items: center;
