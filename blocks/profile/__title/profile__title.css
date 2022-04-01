@@ -1,0 +1,14 @@
+.profile__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 105%;
+    margin-bottom: 9px;
+}
+
+@media screen and (max-width: 650px) {
+    .profile__title {
+        min-width: 220px;
+        justify-content: space-evenly;
+    }
+}
