@@ -1,14 +1,14 @@
 .header__logo {
     min-width: 142px;
     min-height: 33px;
-    background-image: url(/images/VectorLogo.svg);
+    background-image: url(../../../images/VectorLogo.svg);
     margin-bottom: 41px;
     background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 650px) {
     .header__logo {
-        background-image: url(/images/logo-small.svg);
+        background-image: url(../../../images/logo-small.svg);
         min-width: 104px;
         min-height: 24px;
         margin-bottom: 32px;
