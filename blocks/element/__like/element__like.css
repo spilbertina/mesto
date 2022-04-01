@@ -1,0 +1,11 @@
+.element__like {
+    margin-left: auto;
+    border: none;
+    background-color: #fff;
+    transition: opacity .2s ease;
+}
+
+.element__like:hover {
+    cursor: pointer;
+    opacity: 50%;
+}
