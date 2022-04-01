@@ -1,36 +1,35 @@
 let popup = document.querySelector('.popup');
 let popupOpen = document.querySelector('.profile__edit ');
 let popupClose = popup.querySelector('.popup__close');
-let formElement = popup.querySelector('.popup__form-button');
+let profileName = document.querySelector('.profile__name');
+let profileJob = document.querySelector('.profile__job');
+let formElement = popup.querySelector('.popup__form');
 let nameInput = popup.querySelector('.popup__form-name');
 let jobInput = popup.querySelector('.popup__form-job');
-console.log(popup);
 
-function popupToggleX() {
-    popup.classList.toggle('popup__display-none');
-}
 
 popup.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
         popupToggleX();
     }
-    console.log('click!');
 });
 
 popupOpen.addEventListener('click', popupToggleX);
 
 popupClose.addEventListener('click', popupToggleX);
 
-function formSubmitHandler (evt) {
-    evt.preventDefault(); 
-    console.log(nameInput[0].value);
-    console.log(jobInput[0].value);
-    nameInput.className
+formElement.addEventListener('submit', formSubmitHandler); 
+
+
+function popupToggleX() {
+    popup.classList.toggle('popup__display-none');
 }
 
-popupClose.addEventListener('click', function(event) {
-    if(event.target === event.currentTarget) {
-        popupToggleX();
-    }
-    console.log('click!');
-});
+function formSubmitHandler (evt) {
+//отмена стандартного поведения кнопки submit
+    evt.preventDefault(); 
+//обновляет текст в заголовке страницы. новое значение берётся из input модального окна
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
+    popupToggleX();
+}
