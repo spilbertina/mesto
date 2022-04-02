@@ -13,11 +13,8 @@ popup.addEventListener('click', function(event) {
         popupToggleX();
     }
 });
-
 popupOpen.addEventListener('click', popupToggleX);
-
 popupClose.addEventListener('click', popupToggleX);
-
 formElement.addEventListener('submit', formSubmitHandler); 
 
 
@@ -26,9 +23,9 @@ function popupToggleX() {
 }
 
 function formSubmitHandler (evt) {
-//отмена стандартного поведения кнопки submit
+    //отмена стандартного поведения кнопки submit
     evt.preventDefault(); 
-//обновляет текст в заголовке страницы. новое значение берётся из input модального окна
+    //обновляет текст в заголовке страницы. новое значение берётся из input модального окна
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     popupToggleX();
