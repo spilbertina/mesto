@@ -4,9 +4,6 @@
     background-color: #000000;
     border: none;
     box-sizing: border-box;
-    /* position: absolute;
-    right: -20%;
-    top: 20%; */
     transition: opacity .2s ease;
 }
 
@@ -19,7 +16,6 @@
     .profile__edit {
         width: 18px;
         height: 18px;
-        /* top: 15%; */
     }
 }
 
