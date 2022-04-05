@@ -19,7 +19,7 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 function popupToggleX() {
-    popup.classList.toggle('popup_display-none');
+    popup.classList.toggle('popup_show');
 }
 
 function formSubmitHandler (evt) {
