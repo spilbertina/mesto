@@ -6,14 +6,14 @@
     margin-bottom: 46px;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 900px) {
     .cards {
-        justify-content: space-around;
+        justify-content: space-evenly;
     }
-}
+} 
 
-@media screen and (max-width: 612px) {
+@media screen and (max-width: 600px) {
     .cards {
         flex-direction: column;
     }
-}
+} 
