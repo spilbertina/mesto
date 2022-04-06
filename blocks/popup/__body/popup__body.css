@@ -10,7 +10,7 @@
 @media screen and (max-width: 650px) {
     .popup__body {
         width: 282px;
-        min-height: 330px;
+        min-height: 322px;
         padding: 25px 22px 0;
     }
 }

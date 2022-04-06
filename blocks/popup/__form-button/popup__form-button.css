@@ -20,5 +20,7 @@
     .popup__form-button {
         min-height: 46px;
         min-width: 238px;
+        font-size: 14px;
+        line-height: 17px;
     }
 }
