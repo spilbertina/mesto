@@ -18,6 +18,7 @@
 @import url(../blocks/profile/__icon-pen/profile__icon-pen.css);
 @import url(../blocks/profile/__job/profile__job.css);
 @import url(../blocks/profile/__button/profile__button.css);
+@import url(../blocks/profile/__icon-close/profile__icon-close.css);
 
 @import url(../blocks/cards/cards.css);
 
