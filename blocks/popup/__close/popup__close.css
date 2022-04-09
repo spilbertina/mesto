@@ -2,8 +2,8 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    top: -43px;
-    left: 430px;
+    top: -41px;
+    right: -46px;
     transition: opacity .2s ease;
 }
 
@@ -15,6 +15,6 @@
 @media screen and (max-width: 650px) {
     .popup__close {
         top: -37px;
-        left: 255px;
+        right: -7px;
     }
 }
