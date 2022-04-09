@@ -10,15 +10,15 @@ let jobInput = popup.querySelector('.popup__form-job');
 
 popup.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
-        popupToggleX();
+        popupModalWindow();
     }
 });
-popupOpen.addEventListener('click', popupToggleX);
-popupClose.addEventListener('click', popupToggleX);
+popupOpen.addEventListener('click', popupModalWindow);
+popupClose.addEventListener('click', popupModalWindow);
 formElement.addEventListener('submit', formSubmitHandler); 
 
 
-function popupToggleX() {
+function popupModalWindow() {
     popup.classList.toggle('popup_show');
 }
 
@@ -28,5 +28,5 @@ function formSubmitHandler (evt) {
     //обновляет текст в заголовке страницы. новое значение берётся из input модального окна
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    popupToggleX();
+    popupModalWindow();
 }
