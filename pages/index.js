@@ -4,8 +4,8 @@ let popupClose = popup.querySelector('.popup__close');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 let formElement = popup.querySelector('.popup__form');
-let nameInput = popup.querySelector('.popup__form-name');
-let jobInput = popup.querySelector('.popup__form-job');
+let nameInput = popup.querySelector('.popup__form-input[name=name]');
+let jobInput = popup.querySelector('.popup__form-input[name=job]');
 
 
 popup.addEventListener('click', function(event) {
