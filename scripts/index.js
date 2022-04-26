@@ -1,32 +1,91 @@
-let popup = document.querySelector('.popup');
-let popupOpen = document.querySelector('.profile__edit');
-let popupClose = popup.querySelector('.popup__close');
+let popupProfile = document.querySelector('.popup_profile');
+let popupProfileOpen = document.querySelector('.profile__edit');
+let popupProfileClose = popupProfile.querySelector('.popup__close');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
-let formElement = popup.querySelector('.popup__form');
-let nameInput = popup.querySelector('.popup__form-input[name=name]');
-let jobInput = popup.querySelector('.popup__form-input[name=job]');
+let popupProfileForm = popupProfile.querySelector('.popup__form');
+let nameInput = popupProfile.querySelector('.popup__form-input[name=name]');
+let jobInput = popupProfile.querySelector('.popup__form-input[name=job]');
+
+let popupCard = document.querySelector('.popup_card');
+let popupCardOpen = document.querySelector('.profile__button');
+let popupCardClose = popupCard.querySelector('.popup__close');
+let popupCardForm = popupCard.querySelector('.popup__form');
+
+let popupImage = document.querySelector('.popup_image');
+let popupImageOpenAll = document.querySelectorAll('.element__image');
+let popupImageClose = popupImage.querySelector('.popup__close');
 
 
-popup.addEventListener('click', function(event) {
+popupProfile.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
-        popupModalWindow();
+        popupProfile.classList.toggle('popup_show');
     }
 });
-popupOpen.addEventListener('click', popupModalWindow);
-popupClose.addEventListener('click', popupModalWindow);
-formElement.addEventListener('submit', formSubmitHandler); 
+
+popupProfileOpen.addEventListener('click', () => {
+    popupProfile.classList.toggle('popup_show');
+});
+
+popupProfileClose.addEventListener('click', () => {
+    popupProfile.classList.toggle('popup_show');
+});
+
+popupProfileForm.addEventListener('submit', popupProfileFormSubmitHandler); 
 
 
-function popupModalWindow() {
-    popup.classList.toggle('popup_show');
-}
 
-function formSubmitHandler (evt) {
+popupCard.addEventListener('click', function(event) {
+    if(event.target === event.currentTarget) {
+        popupCard.classList.toggle('popup_show');
+    }
+});
+
+popupCardOpen.addEventListener('click', () => {
+    popupCard.classList.toggle('popup_show');
+});
+
+popupCardClose.addEventListener('click', () => {
+    popupCard.classList.toggle('popup_show');
+});
+
+popupCardForm.addEventListener('submit', popupCardFormSubmitHandler); 
+
+
+
+popupImage.addEventListener('click', function(event) {
+    if(event.target === event.currentTarget) {
+        popupImage.classList.toggle('popup_show');
+    }
+});
+
+popupImageOpenAll.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        popupImage.classList.toggle('popup_show');
+        popupImage
+            .querySelector('.popup__figure-img')
+            .setAttribute('src', event.target.currentSrc);
+    })
+});
+
+popupImageClose.addEventListener('click', () => {
+    popupImage.classList.toggle('popup_show');
+});
+
+
+
+function popupProfileFormSubmitHandler (evt) {
     //отмена стандартного поведения кнопки submit
     evt.preventDefault(); 
     //обновляет текст в заголовке страницы. новое значение берётся из input модального окна
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    popupModalWindow();
+    popupProfile.classList.toggle('popup_show');
+}
+
+
+function popupCardFormSubmitHandler (evt) {
+    evt.preventDefault(); 
+    
+    popupCard.classList.toggle('popup_show');
 }
