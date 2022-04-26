@@ -1,3 +1,5 @@
+let cards = document.querySelector('.cards');
+
 let popupProfile = document.querySelector('.popup_profile');
 let popupProfileOpen = document.querySelector('.profile__edit');
 let popupProfileClose = popupProfile.querySelector('.popup__close');
@@ -13,9 +15,7 @@ let popupCardClose = popupCard.querySelector('.popup__close');
 let popupCardForm = popupCard.querySelector('.popup__form');
 
 let popupImage = document.querySelector('.popup_image');
-let popupImageOpenAll = document.querySelectorAll('.element__image');
 let popupImageClose = popupImage.querySelector('.popup__close');
-
 
 popupProfile.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
@@ -32,9 +32,7 @@ popupProfileClose.addEventListener('click', () => {
 });
 
 popupProfileForm.addEventListener('submit', popupProfileFormSubmitHandler); 
-
-
-
+//---------
 popupCard.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
         popupCard.classList.toggle('popup_show');
@@ -50,29 +48,25 @@ popupCardClose.addEventListener('click', () => {
 });
 
 popupCardForm.addEventListener('submit', popupCardFormSubmitHandler); 
-
-
-
+//--------- 
 popupImage.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
         popupImage.classList.toggle('popup_show');
     }
 });
 
-popupImageOpenAll.forEach((item) => {
-    item.addEventListener('click', (event) => {
-        popupImage.classList.toggle('popup_show');
-        popupImage
-            .querySelector('.popup__figure-img')
-            .setAttribute('src', event.target.currentSrc);
-    })
-});
+// popupImageOpenAll.forEach((item) => {
+//     item.addEventListener('click', (event) => {
+//         popupImage.classList.toggle('popup_show');
+//         popupImage
+//             .querySelector('.popup__figure-img')
+//             .setAttribute('src', event.target.currentSrc);
+//     })
+// });
 
 popupImageClose.addEventListener('click', () => {
     popupImage.classList.toggle('popup_show');
 });
-
-
 
 function popupProfileFormSubmitHandler (evt) {
     //отмена стандартного поведения кнопки submit
@@ -83,9 +77,27 @@ function popupProfileFormSubmitHandler (evt) {
     popupProfile.classList.toggle('popup_show');
 }
 
-
 function popupCardFormSubmitHandler (evt) {
     evt.preventDefault(); 
     
     popupCard.classList.toggle('popup_show');
 }
+
+function render() {
+    const HTML = CARDS
+        .map((card) => element(card))
+        .join('');
+    cards.insertAdjacentHTML('afterbegin', HTML); 
+};
+
+render();
+
+let popupImageOpenAll = document.querySelectorAll('.element__image');
+popupImageOpenAll.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        popupImage.classList.toggle('popup_show');
+        popupImage
+            .querySelector('.popup__figure-img')
+            .setAttribute('src', event.target.currentSrc);
+    })
+});
