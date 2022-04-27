@@ -32,6 +32,7 @@ popupProfileClose.addEventListener('click', () => {
 });
 
 popupProfileForm.addEventListener('submit', popupProfileFormSubmitHandler); 
+
 //---------
 popupCard.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
@@ -48,21 +49,13 @@ popupCardClose.addEventListener('click', () => {
 });
 
 popupCardForm.addEventListener('submit', popupCardFormSubmitHandler); 
+
 //--------- 
 popupImage.addEventListener('click', function(event) {
     if(event.target === event.currentTarget) {
         popupImage.classList.toggle('popup_show');
     }
 });
-
-// popupImageOpenAll.forEach((item) => {
-//     item.addEventListener('click', (event) => {
-//         popupImage.classList.toggle('popup_show');
-//         popupImage
-//             .querySelector('.popup__figure-img')
-//             .setAttribute('src', event.target.currentSrc);
-//     })
-// });
 
 popupImageClose.addEventListener('click', () => {
     popupImage.classList.toggle('popup_show');
@@ -100,4 +93,11 @@ popupImageOpenAll.forEach((item) => {
             .querySelector('.popup__figure-img')
             .setAttribute('src', event.target.currentSrc);
     })
+});
+
+let treshButtonCardAll = document.querySelectorAll('.element__trash');
+treshButtonCardAll.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        event.target.parentElement.remove();
+    });
 });
