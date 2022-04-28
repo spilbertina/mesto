@@ -1,7 +1,7 @@
 .popup__figure-img {
     max-width: 64vw;
     min-width: 240px;
-    max-height: 55vw;
+    max-height: 80vh;
     background-size: cover;
 }
 
