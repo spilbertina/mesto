@@ -45,7 +45,7 @@ function handlePopupProfileFormSubmit(evt) {
 function handlePopupCardFormSubmit(evt) {
     evt.preventDefault();
 
-    var card = createCard({
+    const card = createCard({
         name: cardTitle.value,
         link: cardLink.value,
     });
@@ -120,6 +120,6 @@ popups.forEach(popup => {
 
 //----------Функция для создания новых карточек
 INITIAL_CARDS.forEach((cardSettings)=> {
-    var card = createCard(cardSettings);
+    const card = createCard(cardSettings);
     cardsSection.append(card);
 });
