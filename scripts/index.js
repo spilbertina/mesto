@@ -26,7 +26,7 @@ function closePopup(element) {
 }
 
 //----------Функция для отправки формы popupProfile
-function popupProfileFormSubmitHandler(evt) {
+function handlerPopupProfileFormSubmit(evt) {
     //отмена стандартного поведения кнопки submit
     evt.preventDefault();
     //обновляет текст в заголовке страницы. новое значение берётся из input модального окна
@@ -37,7 +37,7 @@ function popupProfileFormSubmitHandler(evt) {
 }
 
 //----------Функция для создания новой карточки
-function popupCardFormSubmitHandler(evt) {
+function handlerPopupCardFormSubmit(evt) {
     evt.preventDefault();
     const title = popupCardForm
         .querySelector('.popup__form-input[name=title]')
@@ -69,7 +69,7 @@ function renderTemplate(card) {
     const elementTitle = template.querySelector('.element__title');
     const elementImage = template.querySelector('.element__image');
 
-    elementTitle.innerText = card.name;
+    elementTitle.textContent = card.name;
     elementImage.setAttribute('src', card.link);
     elementImage.setAttribute('alt', `Фотография места с названием '${card.name}'.`);
 
@@ -89,7 +89,7 @@ function createCard(card) {
     img.addEventListener('click', showImg);
 
     const like = element.querySelector('.element__like');
-    like.addEventListener('click', elementLikeActiveHandler);
+    like.addEventListener('click', handlerElementLikeActive);
 }
 
 function showImg(event) {
@@ -101,12 +101,12 @@ function showImg(event) {
 
     popupImage
         .querySelector('.popup__figure-text')
-        .innerText = event.target.parentElement.innerText;
+        .textContent = event.target.parentElement.textContent;
 
     openPopup(popupImage);
 }
 
-function elementLikeActiveHandler(event) {
+function handlerElementLikeActive(event) {
     event.target.classList.toggle('element__like_active');
 }
 
@@ -115,8 +115,8 @@ function elementLikeActiveHandler(event) {
 popupCardOpen.addEventListener('click', () => openPopup(popupCard));
 popupProfileOpen.addEventListener('click', () => openPopup(popupProfile));
 
-popupProfileForm.addEventListener('submit', popupProfileFormSubmitHandler);
-popupCardForm.addEventListener('submit', popupCardFormSubmitHandler);
+popupProfileForm.addEventListener('submit', handlerPopupProfileFormSubmit);
+popupCardForm.addEventListener('submit', handlerPopupCardFormSubmit);
 
 // вешаем обработчики на попапы
 popups.forEach(popup => {
