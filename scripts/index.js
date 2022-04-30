@@ -8,8 +8,8 @@ const profileJob = document.querySelector('.profile__job');
 const popupProfile = document.querySelector('.popup_profile');
 const popupProfileOpen = document.querySelector('.profile__edit');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
-const nameInput = popupProfile.querySelector('.popup__form-input[name=name]');
-const jobInput = popupProfile.querySelector('.popup__form-input[name=job]');
+const popupProfileNameInput = popupProfile.querySelector('.popup__form-input[name=name]');
+const popupProfileJobInput = popupProfile.querySelector('.popup__form-input[name=job]');
 
 const popupCard = document.querySelector('.popup_card');
 const popupCardOpen = document.querySelector('.profile__button');
@@ -18,11 +18,11 @@ const cardTitle = popupCardForm.querySelector('.popup__form-input[name=title]');
 const cardLink = popupCardForm.querySelector('.popup__form-input[name=link]');
 
 const popupImage = document.querySelector('.popup_image');
+const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
+const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
 
 //-----Функции открытия и закрыия popup
 function handleOpenPopup(element) {
-    element.querySelectorAll('input')
-        .forEach(input => input.value = '');
     element.classList.toggle('popup_show');
 }
 
@@ -31,26 +31,28 @@ function handleClosePopup(element) {
 }
 
 //----------Функция для отправки формы popupProfile
-function handlePopupProfileFormSubmit(evt) {
+function handlePopupProfileFormSubmit(event) {
     //отмена стандартного поведения кнопки submit
-    evt.preventDefault();
+    event.preventDefault();
     //обновляет текст в заголовке страницы. новое значение берётся из input модального окна
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
+    profileName.textContent = popupProfileNameInput.value;
+    profileJob.textContent = popupProfileJobInput.value;
 
     handleClosePopup(popupProfile);
 }
 
 //----------Функция для создания новой карточки
-function handlePopupCardFormSubmit(evt) {
-    evt.preventDefault();
+function handlePopupCardFormSubmit(event) {
+    event.preventDefault();
 
     const card = createCard({
         name: cardTitle.value,
         link: cardLink.value,
     });
     handleClosePopup(popupCard);
+
     cardsSection.prepend(card);
+    popupCardForm.reset();
 }
 
 function handleElementRemove(event) {
@@ -68,12 +70,10 @@ function createCard(cardSettings) {
     const elementImage = card.querySelector('.element__image');
     elementImage.setAttribute('src', cardSettings.link);
     elementImage.setAttribute('alt', `Фотография места с названием '${cardSettings.name}'.`);
+    elementImage.addEventListener('click', handleShowImg);
 
     const deleteButton = card.querySelector('.element__trash')
     deleteButton.addEventListener('click', handleElementRemove);
-
-    const img = card.querySelector('.element__image');
-    img.addEventListener('click', handleShowImg);
 
     const like = card.querySelector('.element__like');
     like.addEventListener('click', handlerElementLikeActive);
@@ -82,15 +82,9 @@ function createCard(cardSettings) {
 }
 
 function handleShowImg(event) {
-    const img = popupImage
-        .querySelector('.popup__figure-img');
-
-    img.setAttribute('src', event.target.currentSrc);
-    img.setAttribute('alt', event.target.alt);
-
-    popupImage
-        .querySelector('.popup__figure-text')
-        .textContent = event.target.parentElement.textContent;
+    popupImageFigureImage.setAttribute('src', event.target.currentSrc);
+    popupImageFigureImage.setAttribute('alt', event.target.alt);
+    popupImageFigureText.textContent = event.target.parentElement.textContent;
 
     handleOpenPopup(popupImage);
 }
@@ -101,7 +95,12 @@ function handlerElementLikeActive(event) {
 
 // вызываю функции
 popupCardOpen.addEventListener('click', () => handleOpenPopup(popupCard));
-popupProfileOpen.addEventListener('click', () => handleOpenPopup(popupProfile));
+popupProfileOpen.addEventListener('click', () => {
+    popupProfileNameInput.value = profileName.textContent;
+    popupProfileJobInput.value = profileJob.textContent;
+    
+    handleOpenPopup(popupProfile);
+});
 
 popupProfileForm.addEventListener('submit', handlePopupProfileFormSubmit);
 popupCardForm.addEventListener('submit', handlePopupCardFormSubmit);
