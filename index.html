@@ -1,131 +1,178 @@
 <!DOCTYPE html>
 <html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./pages/index.css" />
+        <title>Mesto</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto</title>
-</head>
+    <body class="root">
+        <div class="page">
+            <header class="header">
+                <a class="header__logo" href="#" target="_self"></a>
+            </header>
 
-<body class="root">
-
-    <div class="page">
-
-        <header class="header">
-            <a class="header__logo" href="#" target="_self"></a>
-        </header>
-
-        <main class="content">
-
-            <section class="profile">
-                <img class="profile__avatar" src="images/Avatar.svg" alt="Вотография на автварке">
-                <div class="profile__info">
-                    <div class="profile__title">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button class="profile__edit" aria-label="Редактировать профиль" type="button">
-                            <img class="profile__icon-pen" src="images/Edit-Button-desctop.svg" alt="Рисунок ручки">
-                        </button>
+            <main class="content">
+                <section class="profile">
+                    <img
+                        class="profile__avatar"
+                        src="images/Avatar.svg"
+                        alt="Вотография на автварке"
+                    />
+                    <div class="profile__info">
+                        <div class="profile__title">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button
+                                class="profile__edit"
+                                aria-label="Редактировать профиль"
+                                type="button"
+                            >
+                                <img
+                                    class="profile__icon-pen"
+                                    src="images/Edit-Button-desctop.svg"
+                                    alt="Рисунок ручки"
+                                />
+                            </button>
+                        </div>
+                        <p class="profile__job">Исследователь океана</p>
                     </div>
-                    <p class="profile__job">Исследователь океана</p>
-                </div>
-                <button class="profile__button" aria-label="Добавить" type="button">
-                    <img class="profile__icon-close" src="./images/Vector+.svg" alt="Крестик для добавления">
+                    <button
+                        class="profile__button"
+                        aria-label="Добавить"
+                        type="button"
+                    >
+                        <img
+                            class="profile__icon-close"
+                            src="./images/Vector+.svg"
+                            alt="Крестик для добавления"
+                        />
+                    </button>
+                </section>
+
+                <section class="cards"></section>
+            </main>
+
+            <footer class="footer">
+                <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
+            </footer>
+        </div>
+
+        <div class="popup popup_profile">
+            <div class="popup__window">
+                <button class="popup__close" type="button">
+                    <img
+                        class="popup__icon-close"
+                        src="./images/Save-button.png"
+                        alt="Крастик для закрытия формы"
+                    />
                 </button>
-            </section>
-
-            <section class="cards"></section>
-
-        </main>
-
-        <footer class="footer">
-            <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
-        </footer>
-    </div>
-
-    <div class="popup popup_profile">
-        <div class="popup__window">
-            <button class="popup__close" type="button">
-                <img class="popup__icon-close" src="./images/Save-button.png" alt="Крастик для закрытия формы">
-            </button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" name="form">
-                <input 
-                class="popup__form-input" 
-                type="text" 
-                id="name-input"
-                name="name" 
-                placeholder="Имя"
-                >
-                <span class="error" id="name-input-error"></span>
-                <input 
-                class="popup__form-input" 
-                type="text" 
-                id="job-input"
-                name="job" 
-                placeholder="О себе"
-                >
-                <span class="error" id="job-input-error"></span>
-                <button class="popup__form-button" type="submit">Сохранить</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="popup popup_card">
-        <div class="popup__window">
-            <button class="popup__close" type="button">
-                <img class="popup__icon-close" src="./images/Save-button.png" alt="Крастик для закрытия формы">
-            </button>
-            <h2 class="popup__title">Новое место</h2>
-            <form class="popup__form" name="form">
-                <input 
-                class="popup__form-input" 
-                type="text" 
-                id="title-input"
-                name="title" 
-                placeholder="Название"
-                >
-                <span class="error" id="title-input-error"></span>
-                <input 
-                    class="popup__form-input" 
-                    type="text" 
-                    id="link-input"
-                    name="link" 
-                    placeholder="Ссылка на картинку"
-                >
-                <span class="error" id="link-input-error"></span>
-                <button class="popup__form-button" type="submit">Создать</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="popup popup_image">
-        <div class="popup__window-image">
-            <button class="popup__close popup__close_image" type="button">
-                <img class="popup__icon-close" src="./images/Save-button.png" alt="Крастик для закрытия формы">
-            </button>
-            <figure class="popup__figure">
-                <img class="popup__figure-img" src="./images/Vector+.svg" alt="">
-                <figcaption class="popup__figure-text"></figcaption>
-            </figure>
-        </div>
-    </div>
-
-    <template class="template">
-        <div class="element">
-            <img class="element__image" src="./images/Vector+.svg" alt="">
-            <button class="element__trash" aria-label="Мусорная корзина" type="button"></button>
-            <div class="element__info">
-                <h2 class="element__title"></h2>
-                <button class="element__like" aria-label="Сердечко" type="button">
-                </button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="popup__form" name="form" >
+                    <input
+                        class="popup__form-input"
+                        type="text"
+                        required
+                        id="name-input"
+                        name="name"
+                        minlength="2"
+                        placeholder="Имя"
+                    />
+                    <!-- <span class="error" id="name-input-error">Вы пропустили это поле</span> -->
+                    <input
+                        class="popup__form-input"
+                        type="text"
+                        required
+                        id="job-input"
+                        name="job"
+                        minlength="2"
+                        placeholder="О себе"
+                    />
+                    <!-- <span class="error" id="job-input-error">Вы пропустили это поле</span> -->
+                    <button class="popup__form-button" type="submit">
+                        Сохранить
+                    </button>
+                </form>
             </div>
         </div>
-    </template>
 
-    <script src="./scripts/constans.js"></script>
-    <script src="./scripts/index.js"></script>
-</body>
+        <div class="popup popup_card">
+            <div class="popup__window">
+                <button class="popup__close" type="button">
+                    <img
+                        class="popup__icon-close"
+                        src="./images/Save-button.png"
+                        alt="Крастик для закрытия формы"
+                    />
+                </button>
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form" name="form" novalidate>
+                    <input
+                        class="popup__form-input"
+                        type="text"
+                        required
+                        id="title-input"
+                        name="title"
+                        placeholder="Название"
+                    />
+                    <span class="error" id="title-input-error">Вы пропустили это поле</span>
+                    <input
+                        class="popup__form-input"
+                        type="url"
+                        required
+                        id="link-input"
+                        name="link"
+                        placeholder="Ссылка на картинку"
+                    />
+                    <span class="error" id="link-input-error">Вы пропустили это поле</span>
+                    <button class="popup__form-button" type="submit">
+                        Создать
+                    </button>
+                </form>
+            </div>
+        </div>
 
+        <div class="popup popup_image">
+            <div class="popup__window-image">
+                <button class="popup__close popup__close_image" type="button">
+                    <img
+                        class="popup__icon-close"
+                        src="./images/Save-button.png"
+                        alt="Крастик для закрытия формы"
+                    />
+                </button>
+                <figure class="popup__figure">
+                    <img
+                        class="popup__figure-img"
+                        src="./images/Vector+.svg"
+                        alt=""
+                    />
+                    <figcaption class="popup__figure-text"></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <template class="template">
+            <div class="element">
+                <img class="element__image" src="./images/Vector+.svg" alt="" />
+                <button
+                    class="element__trash"
+                    aria-label="Мусорная корзина"
+                    type="button"
+                ></button>
+                <div class="element__info">
+                    <h2 class="element__title"></h2>
+                    <button
+                        class="element__like"
+                        aria-label="Сердечко"
+                        type="button"
+                    ></button>
+                </div>
+            </div>
+        </template>
+
+        <script src="./scripts/constans.js"></script>
+        <script src="./scripts/index.js"></script>
+    </body>
 </html>
