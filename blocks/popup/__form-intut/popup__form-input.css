@@ -5,9 +5,12 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup__form-input:invalid {
-    border-bottom-color: #FF0000;
-    border-width: 1px;
+.popup__form-input:invalid{
+    border-bottom-color: red;
+}
+
+.popup__form-input:valid{
+    border-bottom-color: green;
 }
 
 .popup__form-input:last-of-type {

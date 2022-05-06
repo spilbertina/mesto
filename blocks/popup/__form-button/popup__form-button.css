@@ -17,6 +17,11 @@
     opacity: 80%;
 }
 
+.popup__form-button:disabled{
+    /* color: red; */
+    opacity: 50%;
+}
+
 @media screen and (max-width: 650px) {
     .popup__form-button {
         min-height: 46px;
