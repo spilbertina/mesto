@@ -94,12 +94,17 @@ function handlerElementLikeActive(event) {
 }
 
 // вызываю функции
-popupCardOpen.addEventListener('click', () => handleOpenPopup(popupCard));
+popupCardOpen.addEventListener('click', () => {
+    handleOpenPopup(popupCard)
+    validateForm(popupCardForm);
+});
+
 popupProfileOpen.addEventListener('click', () => {
     popupProfileNameInput.value = profileName.textContent;
     popupProfileJobInput.value = profileJob.textContent;
     
     handleOpenPopup(popupProfile);
+    validateForm(popupProfileForm);
 });
 
 popupProfileForm.addEventListener('submit', handlePopupProfileFormSubmit);
