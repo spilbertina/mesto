@@ -1,18 +1,15 @@
 .popup__form-input {
-    margin-bottom: 26px;
+    margin-bottom: 5px;
     min-height: 27px;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup__form-input:invalid{
+.popup__form-input_validate:invalid{
     border-bottom-color: red;
 }
 
-.popup__form-input:valid{
-    border-bottom-color: green;
-}
-
-.popup__form-input:last-of-type {
-    margin-bottom: 48px;
+.popup__form-input:focus {
+    outline: 0px;
+    border-bottom: solid 1px rgb(49, 30, 255);
 }

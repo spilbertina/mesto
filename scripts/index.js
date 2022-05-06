@@ -1,7 +1,7 @@
 const template = document.querySelector('.template');
 
 const cardsSection = document.querySelector('.cards');
-const popups = document.querySelectorAll('.popup');
+const popups = Array.from(document.querySelectorAll('.popup'));
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
@@ -96,13 +96,12 @@ function handlerElementLikeActive(event) {
 // вызываю функции
 popupCardOpen.addEventListener('click', () => {
     handleOpenPopup(popupCard)
-    validateForm(popupCardForm);
 });
 
 popupProfileOpen.addEventListener('click', () => {
     popupProfileNameInput.value = profileName.textContent;
     popupProfileJobInput.value = profileJob.textContent;
-    
+
     handleOpenPopup(popupProfile);
     validateForm(popupProfileForm);
 });
@@ -122,8 +121,17 @@ popups.forEach(popup => {
     });
 });
 
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'Escape') {
+        const showedPopup = popups.find(popup => popup.classList.contains('popup_show'));
+        if (showedPopup) {
+            handleClosePopup(showedPopup)
+        }
+    }
+});
+
 //----------Функция для создания новых карточек
-INITIAL_CARDS.forEach((cardSettings)=> {
+INITIAL_CARDS.forEach((cardSettings) => {
     const card = createCard(cardSettings);
     cardsSection.append(card);
 });
