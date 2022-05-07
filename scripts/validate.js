@@ -51,3 +51,5 @@ function setEventListeners(config, form) {
         });
     });
 }
+
+enableValidation(VALIDATE_CONFIG);

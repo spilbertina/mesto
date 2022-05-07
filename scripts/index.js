@@ -85,7 +85,7 @@ function createCard(cardSettings) {
     buttonDeleteCard.addEventListener('click', handleElementRemove);
 
     const like = card.querySelector('.element__like');
-    like.addEventListener('click', handlerElementLikeActive);
+    like.addEventListener('click', handleElementLikeActive);
 
     return card;
 }
@@ -98,7 +98,7 @@ function handleShowImg(event) {
     handleOpenPopup(popupImage);
 }
 
-function handlerElementLikeActive(event) {
+function handleElementLikeActive(event) {
     event.target.classList.toggle('element__like_active');
 }
 
@@ -137,4 +137,4 @@ INITIAL_CARDS.forEach((cardSettings) => {
     cardsSection.append(card);
 });
 
-enableValidation(VALIDATE_CONFIG);
+// enableValidation(VALIDATE_CONFIG);
