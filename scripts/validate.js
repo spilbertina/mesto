@@ -6,9 +6,8 @@ function enableValidation(config) {
     });
 }
 
-function toggleButtonState(config, form) {
+function toggleButtonState(config, form, elements) {
     const submit = form.querySelector(config.submitButtonSelector);
-    const elements = Array.from(form.querySelectorAll(config.inputSelector));
     elements.some(i => i.validity.valid != true)
         ? submit.setAttribute('disabled', true)
         : submit.removeAttribute('disabled');
@@ -20,9 +19,9 @@ function checkInputValidity(form, element) {
         : showErrorMessage(form, element)
 }
 
-function checkFormValidityBeforeOpen(config, form){
-    hideAllErrorMessages(config, form);
-    toggleButtonState(config, form);
+function checkFormValidityBeforeOpen(config, form, elements){
+    hideAllErrorMessages(form, elements);
+    toggleButtonState(config, form, elements);
 }
 
 function showErrorMessage(form, element) {
@@ -35,19 +34,18 @@ function hideErrorMessage(form, element) {
     errorElement.textContent = '';
 }
 
-function hideAllErrorMessages(config, form){
-    const elements = Array.from(form.querySelectorAll(config.inputSelector));
+function hideAllErrorMessages(form, elements){
     elements.forEach((element)=>{
         hideErrorMessage(form, element);
     });
 }
 
 function setEventListeners(config, form) {
-    const inputs = form.querySelectorAll(config.inputSelector);
+    const inputs = Array.from(form.querySelectorAll(config.inputSelector));
     inputs.forEach((element) => {
         element.addEventListener('input', () => {
             checkInputValidity(form, element);
-            toggleButtonState(config, form);
+            toggleButtonState(config, form, inputs);
         });
     });
 }

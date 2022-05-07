@@ -105,14 +105,16 @@ function handleElementLikeActive(event) {
 // вызываю функции
 popupCardOpen.addEventListener('click', () => {
     handleOpenPopup(popupCard);
-    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupCardForm);
+    const elements = Array.from(popupCardForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
+    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupCardForm, elements);
 });
 
 popupProfileOpen.addEventListener('click', () => {
     popupProfileNameInput.value = profileName.textContent;
     popupProfileJobInput.value = profileJob.textContent;
 
-    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupProfileForm);
+    const elements = Array.from(popupProfileForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
+    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupProfileForm, elements);
     handleOpenPopup(popupProfile);
 });
 
@@ -136,5 +138,3 @@ INITIAL_CARDS.forEach((cardSettings) => {
     const card = createCard(cardSettings);
     cardsSection.append(card);
 });
-
-// enableValidation(VALIDATE_CONFIG);
