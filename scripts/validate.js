@@ -1,40 +1,53 @@
-const settings = enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__form-input',
-    submitButtonSelector: '.popup__form-button',
-    errorClass: 'popup__form-error_visible'
-});
-
-function enableValidation(settings) {
-    const formsList = document.querySelectorAll(settings.formSelector);
+function enableValidation(config) {
+    const formsList = document.querySelectorAll(config.formSelector);
     const forms = Array.from(formsList);
     forms.forEach((form) => {
-        form.addEventListener('input', () => {
-            validateForm(form)
-        });
+        setEventListeners(config, form);
     });
-
-    return settings;
 }
 
-function updateErrorMessageText(form, element) {
+function toggleButtonState(config, form) {
+    const submit = form.querySelector(config.submitButtonSelector);
+    const elements = Array.from(form.querySelectorAll(config.inputSelector));
+    elements.some(i => i.validity.valid != true)
+        ? submit.setAttribute('disabled', true)
+        : submit.removeAttribute('disabled');
+}
+
+function checkInputValidity(form, element) {
+    element.validity.valid
+        ? hideErrorMessage(form, element)
+        : showErrorMessage(form, element)
+}
+
+function checkFormValidityBeforeOpen(config, form){
+    hideAllErrorMessages(config, form);
+    toggleButtonState(config, form);
+}
+
+function showErrorMessage(form, element) {
     const errorElement = form.querySelector(`.${element.id}-error`);
     errorElement.textContent = element.validationMessage;
-
-    element.validity.valid
-        ? element.classList.remove(settings.errorClass)
-        : element.classList.add(settings.errorClass);
 }
 
-function validateForm(form) {
-    const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
-    const submit = form.querySelector(settings.submitButtonSelector);
+function hideErrorMessage(form, element) {
+    const errorElement = form.querySelector(`.${element.id}-error`);
+    errorElement.textContent = '';
+}
 
-    inputs.every(i => i.validity.valid)
-        ? submit.removeAttribute('disabled')
-        : submit.setAttribute('disabled', true);
+function hideAllErrorMessages(config, form){
+    const elements = Array.from(form.querySelectorAll(config.inputSelector));
+    elements.forEach((element)=>{
+        hideErrorMessage(form, element);
+    });
+}
 
-    inputs.forEach((input) => {
-        updateErrorMessageText(form, input);
+function setEventListeners(config, form) {
+    const inputs = form.querySelectorAll(config.inputSelector);
+    inputs.forEach((element) => {
+        element.addEventListener('input', () => {
+            checkInputValidity(form, element);
+            toggleButtonState(config, form);
+        });
     });
 }
