@@ -10,12 +10,16 @@ const popupProfileOpen = document.querySelector('.profile__edit');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
 const popupProfileNameInput = popupProfile.querySelector('.popup__form-input[name=name]');
 const popupProfileJobInput = popupProfile.querySelector('.popup__form-input[name=job]');
+const popupProfileFormSubmit = popupProfileForm.querySelector('[type=submit]');
+const popupProfileInputs = Array.from(popupProfileForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
 
 const popupCard = document.querySelector('.popup_card');
 const popupCardOpen = document.querySelector('.profile__button');
 const popupCardForm = popupCard.querySelector('.popup__form');
-const cardTitle = popupCardForm.querySelector('.popup__form-input[name=title]');
-const cardLink = popupCardForm.querySelector('.popup__form-input[name=link]');
+const popupCardFormSubmit = popupCardForm.querySelector('[type=submit]');
+const popupCardFormInputs = Array.from(popupCardForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
+const popupCardTitle = popupCardForm.querySelector('.popup__form-input[name=title]');
+const popupCardLink = popupCardForm.querySelector('.popup__form-input[name=link]');
 
 const popupImage = document.querySelector('.popup_image');
 const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
@@ -55,8 +59,8 @@ function handlePopupCardFormSubmit(event) {
     event.preventDefault();
 
     const card = createCard({
-        name: cardTitle.value,
-        link: cardLink.value,
+        name: popupCardTitle.value,
+        link: popupCardLink.value,
     });
     handleClosePopup(popupCard);
 
@@ -105,16 +109,14 @@ function handleElementLikeActive(event) {
 // вызываю функции
 popupCardOpen.addEventListener('click', () => {
     handleOpenPopup(popupCard);
-    const elements = Array.from(popupCardForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
-    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupCardForm, elements);
+    checkFormValidityBeforeOpen(popupCardForm, popupCardFormSubmit, popupCardFormInputs);
 });
 
 popupProfileOpen.addEventListener('click', () => {
     popupProfileNameInput.value = profileName.textContent;
     popupProfileJobInput.value = profileJob.textContent;
 
-    const elements = Array.from(popupProfileForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
-    checkFormValidityBeforeOpen(VALIDATE_CONFIG, popupProfileForm, elements);
+    checkFormValidityBeforeOpen(popupProfileForm, popupProfileFormSubmit, popupProfileInputs);
     handleOpenPopup(popupProfile);
 });
 
