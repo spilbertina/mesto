@@ -1,51 +1,45 @@
-const popupImage = document.querySelector('.popup_image');
-const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
-const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
-
 export class Card {
-    constructor(templateSelector, text, link) {
+    constructor(templateSelector, settings, handler) {
         this.templateSelector = templateSelector;
-        this.text = text;
-        this.link = link;
+        this.text = settings.name;
+        this.link = settings.link;
         this._isLike = false;
+        this._popupOpenHandler = handler;
     }
 
     _handleShowImg(event) {
-        popupImageFigureImage.setAttribute('src', event.link);
-        popupImageFigureImage.setAttribute('alt', event.text);
-        popupImageFigureText.textContent = event.text;
-        popupImage.classList.toggle('popup_show');
+        this._popupOpenHandler(event);
     }
 
     _handleElementLikeActive(event) {
         event.target.classList.toggle('element__like_active');
     }
 
-
     _handleElementRemove(event) {
         event.target.closest('.element').remove();
     }
 
     getElement() {
-        const card =
+        this._element =
             document.querySelector(this.templateSelector)
                 .content
                 .cloneNode(true);
 
-        const elementTitle = card.querySelector('.element__title');
+        const elementTitle = this._element.querySelector('.element__title');
         elementTitle.textContent = this.text;
 
-        const elementImage = card.querySelector('.element__image');
+        const elementImage = this._element.querySelector('.element__image');
         elementImage.setAttribute('src', this.link);
         elementImage.setAttribute('alt', `Фотография места с названием '${this.text}'.`);
+        
         elementImage.addEventListener('click', () => this._handleShowImg(this));
 
-         const buttonDeleteCard = card.querySelector('.element__trash')
-         buttonDeleteCard.addEventListener('click', this._handleElementRemove);
+        const buttonDeleteCard = this._element.querySelector('.element__trash')
+        buttonDeleteCard.addEventListener('click', this._handleElementRemove);
 
-        const like = card.querySelector('.element__like');
+        const like = this._element.querySelector('.element__like');
         like.addEventListener('click', this._handleElementLikeActive);
 
-        return card;
+        return this._element;
     }
 }

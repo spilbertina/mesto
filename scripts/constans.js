@@ -1,3 +1,5 @@
+
+
 const INITIAL_CARDS = [
     {
         name: 'Архыз',
