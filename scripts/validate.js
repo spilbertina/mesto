@@ -1,6 +1,6 @@
 import { VALIDATE_CONFIG } from './constans.js'
 
-function enableValidation(config) {
+export function enableValidation(config) {
     const formsList = document.querySelectorAll(config.formSelector);
     const forms = Array.from(formsList);
     forms.forEach((form) => {
@@ -23,7 +23,7 @@ function checkInputValidity(form, element) {
         : showErrorMessage(form, element)
 }
 
-function checkFormValidityBeforeOpen(form, submit, elements) {
+export function checkFormValidityBeforeOpen(form, submit, elements) {
     hideAllErrorMessages(form, elements);
     toggleButtonState(submit, elements);
 }
@@ -53,4 +53,4 @@ function setEventListeners(form, submit, inputs) {
     });
 }
 
-enableValidation(VALIDATE_CONFIG);
+//enableValidation(VALIDATE_CONFIG);
