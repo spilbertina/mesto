@@ -1,3 +1,5 @@
+import { VALIDATE_CONFIG } from './constans.js'
+
 function enableValidation(config) {
     const formsList = document.querySelectorAll(config.formSelector);
     const forms = Array.from(formsList);
@@ -21,7 +23,7 @@ function checkInputValidity(form, element) {
         : showErrorMessage(form, element)
 }
 
-function checkFormValidityBeforeOpen(form, submit, elements){
+function checkFormValidityBeforeOpen(form, submit, elements) {
     hideAllErrorMessages(form, elements);
     toggleButtonState(submit, elements);
 }
@@ -36,8 +38,8 @@ function hideErrorMessage(form, element) {
     errorElement.textContent = '';
 }
 
-function hideAllErrorMessages(form, elements){
-    elements.forEach((element)=>{
+function hideAllErrorMessages(form, elements) {
+    elements.forEach((element) => {
         hideErrorMessage(form, element);
     });
 }

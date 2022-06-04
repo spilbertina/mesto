@@ -31,3 +31,6 @@ const VALIDATE_CONFIG = {
     submitButtonSelector: '.popup__form-button',
     errorClass: 'popup__form-error_visible'
 };
+
+
+export { INITIAL_CARDS, VALIDATE_CONFIG };
