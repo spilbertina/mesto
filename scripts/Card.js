@@ -14,17 +14,16 @@ export class Card {
         popupImageFigureImage.setAttribute('src', event.link);
         popupImageFigureImage.setAttribute('alt', event.text);
         popupImageFigureText.textContent = event.text;
-        this.test(popupImage);
+        popupImage.classList.toggle('popup_show');
     }
 
     _handleElementLikeActive(event) {
         event.target.classList.toggle('element__like_active');
     }
 
-    test(event) {
-        event.classList.toggle('popup_show');
-        //document.addEventListener('keyup', handleClosePopupByEscape);
 
+    _handleElementRemove(event) {
+        event.target.closest('.element').remove();
     }
 
     getElement() {
@@ -41,8 +40,8 @@ export class Card {
         elementImage.setAttribute('alt', `Фотография места с названием '${this.text}'.`);
         elementImage.addEventListener('click', () => this._handleShowImg(this));
 
-        //  const buttonDeleteCard = card.querySelector('.element__trash')
-        //  buttonDeleteCard.addEventListener('click', handleElementRemove);
+         const buttonDeleteCard = card.querySelector('.element__trash')
+         buttonDeleteCard.addEventListener('click', this._handleElementRemove);
 
         const like = card.querySelector('.element__like');
         like.addEventListener('click', this._handleElementLikeActive);

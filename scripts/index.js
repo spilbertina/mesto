@@ -1,8 +1,8 @@
 import { INITIAL_CARDS, VALIDATE_CONFIG } from './constans.js'
-// import { Card } from './Card.js'
+import { Card } from './Card.js'
 import { enableValidation, checkFormValidityBeforeOpen } from './validate.js'
 
-const template = document.querySelector('.template');
+//const template = document.querySelector('.template');
 
 const cardsSection = document.querySelector('.cards');
 const popups = Array.from(document.querySelectorAll('.popup'));
@@ -25,26 +25,28 @@ const popupCardFormInputs = Array.from(popupCardForm.querySelectorAll(VALIDATE_C
 const popupCardTitle = popupCardForm.querySelector('.popup__form-input[name=title]');
 const popupCardLink = popupCardForm.querySelector('.popup__form-input[name=link]');
 
-const popupImage = document.querySelector('.popup_image');
-const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
-const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
+// const popupImage = document.querySelector('.popup_image');
+// const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
+// const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
 
 //-----Функции открытия и закрыия popup
 function handleClosePopupByEscape(event) {
     if (event.key === 'Escape') {
         const popupOpen = document.querySelector('.popup_show');
-        handleClosePopup(popupOpen)
+        if (popupOpen) {
+            handleClosePopup(popupOpen)
+        }
     }
 }
 
 function handleOpenPopup(element) {
     element.classList.toggle('popup_show');
-    document.addEventListener('keyup', handleClosePopupByEscape);
+    // document.addEventListener('keyup', handleClosePopupByEscape);
 }
 
 function handleClosePopup(element) {
     element.classList.toggle('popup_show');
-    document.removeEventListener('keyup', handleClosePopupByEscape)
+    //document.removeEventListener('keyup', handleClosePopupByEscape)
 }
 
 //----------Функция для отправки формы popupProfile
@@ -62,55 +64,58 @@ function handlePopupProfileFormSubmit(event) {
 function handlePopupCardFormSubmit(event) {
     event.preventDefault();
 
-    const card = createCard({
-        name: popupCardTitle.value,
-        link: popupCardLink.value,
-    });
+    // const card = createCard({
+    //     name: popupCardTitle.value,
+    //     link: popupCardLink.value,
+    // });
+
+    const card = new Card('.template', popupCardTitle.value, popupCardLink.value);
+
     handleClosePopup(popupCard);
 
-    cardsSection.prepend(card);
+   //cardsSection.prepend(card);
+    cardsSection.prepend(card.getElement());
     popupCardForm.reset();
 }
 
-function handleElementRemove(event) {
-    event.target.closest('.element').remove();
-}
+// function handleElementRemove(event) {
+//     event.target.closest('.element').remove();
+// }
 
-function createCard(cardSettings) {
-    const card = template
-        .content
-        .cloneNode(true);
+// function createCard(cardSettings) {
+//     const card = template
+//         .content
+//         .cloneNode(true);
 
-    const elementTitle = card.querySelector('.element__title');
-    elementTitle.textContent = cardSettings.name;
+//     const elementTitle = card.querySelector('.element__title');
+//     elementTitle.textContent = cardSettings.name;
 
-    const elementImage = card.querySelector('.element__image');
-    elementImage.setAttribute('src', cardSettings.link);
-    elementImage.setAttribute('alt', `Фотография места с названием '${cardSettings.name}'.`);
-    elementImage.addEventListener('click', handleShowImg);
+//     const elementImage = card.querySelector('.element__image');
+//     elementImage.setAttribute('src', cardSettings.link);
+//     elementImage.setAttribute('alt', `Фотография места с названием '${cardSettings.name}'.`);
+//     elementImage.addEventListener('click', handleShowImg);
 
-    const buttonDeleteCard = card.querySelector('.element__trash')
-    buttonDeleteCard.addEventListener('click', handleElementRemove);
+//     const buttonDeleteCard = card.querySelector('.element__trash')
+//     buttonDeleteCard.addEventListener('click', handleElementRemove);
 
-    const like = card.querySelector('.element__like');
-    like.addEventListener('click', handleElementLikeActive);
+//     const like = card.querySelector('.element__like');
+//     like.addEventListener('click', handleElementLikeActive);
 
-    return card;
-}
+//     return card;
+// }
 
-function handleShowImg(event) {
-    popupImageFigureImage.setAttribute('src', event.target.currentSrc);
-    popupImageFigureImage.setAttribute('alt', event.target.alt);
-    popupImageFigureText.textContent = event.target.parentElement.textContent;
+// function handleShowImg(event) {
+//     popupImageFigureImage.setAttribute('src', event.target.currentSrc);
+//     popupImageFigureImage.setAttribute('alt', event.target.alt);
+//     popupImageFigureText.textContent = event.target.parentElement.textContent;
 
-    handleOpenPopup(popupImage);
-}
+//     handleOpenPopup(popupImage);
+// }
 
-function handleElementLikeActive(event) {
-    event.target.classList.toggle('element__like_active');
-}
+// function handleElementLikeActive(event) {
+//     event.target.classList.toggle('element__like_active');
+// }
 
-// вызываю функции
 popupCardOpen.addEventListener('click', () => {
     handleOpenPopup(popupCard);
     checkFormValidityBeforeOpen(popupCardForm, popupCardFormSubmit, popupCardFormInputs);
@@ -127,6 +132,15 @@ popupProfileOpen.addEventListener('click', () => {
 popupProfileForm.addEventListener('submit', handlePopupProfileFormSubmit);
 popupCardForm.addEventListener('submit', handlePopupCardFormSubmit);
 
+//----------Функция для создания новых карточек
+INITIAL_CARDS.forEach((cardSettings) => {
+    //const card = createCard(cardSettings);
+    //cardsSection.append(card);
+
+    const card = new Card('.template', cardSettings.name, cardSettings.link);
+    cardsSection.append(card.getElement());
+});
+
 // вешаем обработчики на попапы
 popups.forEach(popup => {
     const popupClose = popup.querySelector('.popup__close');
@@ -137,16 +151,10 @@ popups.forEach(popup => {
             handleClosePopup(popup);
         }
     });
+
+    
 });
 
-//----------Функция для создания новых карточек
-INITIAL_CARDS.forEach((cardSettings) => {
-    const card = createCard(cardSettings);
-
-   // const card =  new Card('.template', cardSettings.name, cardSettings.link);
-
-    cardsSection.append(card);
-});
-
+document.addEventListener('keyup', handleClosePopupByEscape)
 
 enableValidation(VALIDATE_CONFIG);
