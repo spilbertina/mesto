@@ -12,14 +12,10 @@ const popupProfileOpen = document.querySelector('.profile__edit');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
 const popupProfileNameInput = popupProfile.querySelector('.popup__form-input[name=name]');
 const popupProfileJobInput = popupProfile.querySelector('.popup__form-input[name=job]');
-const popupProfileFormSubmit = popupProfileForm.querySelector('[type=submit]');
-const popupProfileInputs = Array.from(popupProfileForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
 
 const popupCard = document.querySelector('.popup_card');
 const popupCardOpen = document.querySelector('.profile__button');
 const popupCardForm = popupCard.querySelector('.popup__form');
-const popupCardFormSubmit = popupCardForm.querySelector('[type=submit]');
-const popupCardFormInputs = Array.from(popupCardForm.querySelectorAll(VALIDATE_CONFIG.inputSelector));
 const popupCardTitle = popupCardForm.querySelector('.popup__form-input[name=title]');
 const popupCardLink = popupCardForm.querySelector('.popup__form-input[name=link]');
 
@@ -27,6 +23,8 @@ const popupImage = document.querySelector('.popup_image');
 const popupImageFigureImage = popupImage.querySelector('.popup__figure-img');
 const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
 
+const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
+const validatorPrifile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
 //-----Функции открытия и закрыия popup
 function handleClosePopupByEscape(event) {
     if (event.key === 'Escape') {
@@ -58,18 +56,35 @@ function handlePopupProfileFormSubmit(event) {
 
 //----------Функция для создания новой карточки
 function handlePopupCardFormSubmit(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    const cardSettings={
+    const cardSettings = {
         name: popupCardTitle.value,
         link: popupCardLink.value
     }
 
-    const card = new Card('.template', cardSettings,  hanblePopupImageOpen);
+    const card = createCard(cardSettings);
     cardsSection.prepend(card.getElement());
 
     handleClosePopup(popupCard);
     popupCardForm.reset();
+}
+
+function handleCreateNewCard() {
+    validatorNewCard.checkFormValidityBeforeOpen();
+    handleOpenPopup(popupCard);
+}
+
+function handleEditProfile() {
+    popupProfileNameInput.value = profileName.textContent;
+    popupProfileJobInput.value = profileJob.textContent;
+
+    validatorPrifile.checkFormValidityBeforeOpen();
+    handleOpenPopup(popupProfile);
+}
+
+function createCard(settings) {
+    return new Card('.template', settings, hanblePopupImageOpen);
 }
 
 function hanblePopupImageOpen(card) {
@@ -79,31 +94,14 @@ function hanblePopupImageOpen(card) {
     handleOpenPopup(popupImage);
 }
 
-popupCardOpen.addEventListener('click', () => {
-    const validator = new FormValidator(VALIDATE_CONFIG, popupCardForm);
-    validator.enableValidation();
-    validator.checkFormValidityBeforeOpen(popupCardForm, popupCardFormSubmit, popupCardFormInputs);
-
-    handleOpenPopup(popupCard);
-});
-
-popupProfileOpen.addEventListener('click', () => {
-    popupProfileNameInput.value = profileName.textContent;
-    popupProfileJobInput.value = profileJob.textContent;
-
-    const validator = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
-    validator.enableValidation();
-    validator.checkFormValidityBeforeOpen(popupProfileForm, popupProfileFormSubmit, popupProfileInputs);
-
-    handleOpenPopup(popupProfile);
-});
-
+popupCardOpen.addEventListener('click', handleCreateNewCard);
+popupProfileOpen.addEventListener('click', handleEditProfile);
 popupProfileForm.addEventListener('submit', handlePopupProfileFormSubmit);
 popupCardForm.addEventListener('submit', handlePopupCardFormSubmit);
 
 //----------Функция для создания новых карточек
 INITIAL_CARDS.forEach((cardSettings) => {
-    const card = new Card('.template', cardSettings, hanblePopupImageOpen);
+    const card = createCard(cardSettings);
     cardsSection.append(card.getElement());
 });
 
@@ -117,3 +115,6 @@ popups.forEach(popup => {
         }
     });
 });
+
+validatorNewCard.enableValidation();
+validatorPrifile.enableValidation();

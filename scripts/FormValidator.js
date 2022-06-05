@@ -1,19 +1,18 @@
 export class FormValidator {
     constructor(settings, form) {
-        this.settings = settings;
-        this.form = form;
+        this._settings = settings;
+        this._form = form;
+        this._inputs = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
+        this._submit = this._form.querySelector(this._settings.submitButtonSelector);
     }
 
     enableValidation() {
-        const submit = this.form.querySelector('[type=submit]');
-        const inputs = Array.from(this.form.querySelectorAll(this.settings.inputSelector));
-
-        this._setEventListeners(this.form, submit, inputs);
+        this._setEventListeners(this._form, this._submit, this._inputs);
     }
 
-    checkFormValidityBeforeOpen(form, submit, elements) {
-        this._hideAllErrorMessages(form, elements);
-        this._toggleButtonState(submit, elements);
+    checkFormValidityBeforeOpen() {
+        this._hideAllErrorMessages(this._form, this._inputs);
+        this._toggleButtonState(this._submit, this._inputs);
     }
 
     _toggleButtonState(submit, elements) {
