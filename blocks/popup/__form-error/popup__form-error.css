@@ -3,5 +3,9 @@
     color: red;
     font-size: 12px;
     line-height: 15px;
-    min-height: 25px;
+    min-height: 30px;
+}
+
+.popup__form-error:last-of-type {
+    min-height: 40px;
 }
