@@ -3,15 +3,8 @@
     color: #545454;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 620px) {
     .footer {
-        justify-content: space-evenly;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .footer {
-        justify-content: start;
         margin-left: 19px;
     }
 }
