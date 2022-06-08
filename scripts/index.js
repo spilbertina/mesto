@@ -34,12 +34,12 @@ function handleClosePopupByEscape(event) {
 }
 
 function handleOpenPopup(element) {
-    element.classList.toggle('popup_show');
+    element.classList.add('popup_show');
     document.addEventListener('keyup', handleClosePopupByEscape);
 }
 
 function handleClosePopup(element) {
-    element.classList.toggle('popup_show');
+    element.classList.remove('popup_show');
     document.removeEventListener('keyup', handleClosePopupByEscape);
 }
 
