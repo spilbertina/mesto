@@ -1,7 +1,7 @@
 export class Card {
     constructor(templateSelector, settings, handler) {
-        this.text = settings.name;
-        this.link = settings.link;
+        this._text = settings.name;
+        this._link = settings.link;
         this._popupOpenHandler = handler;
         this._templateSelector = templateSelector;
 
@@ -27,9 +27,9 @@ export class Card {
     }
 
     getElement() {
-        this._elementTitle.textContent = this.text;
-        this._elementImage.setAttribute('src', this.link);
-        this._elementImage.setAttribute('alt', `Фотография места с названием '${this.text}'.`);
+        this._elementTitle.textContent = this._text;
+        this._elementImage.setAttribute('src', this._link);
+        this._elementImage.setAttribute('alt', `Фотография места с названием '${this._text}'.`);
         
         this._elementImage.addEventListener('click', () => this._handleShowImg(this));
         this._buttonDeleteCard.addEventListener('click', this._handleElementRemove);
