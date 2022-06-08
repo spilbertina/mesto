@@ -87,10 +87,10 @@ function createCard(settings) {
     return new Card('.template', settings, hanblePopupImageOpen);
 }
 
-function hanblePopupImageOpen(card) {
-    popupImageFigureImage.setAttribute('src', card._link);
-    popupImageFigureImage.setAttribute('alt', card._text);
-    popupImageFigureText.textContent = card._text;
+function hanblePopupImageOpen(link, text) {
+    popupImageFigureImage.setAttribute('src', link);
+    popupImageFigureImage.setAttribute('alt', text);
+    popupImageFigureText.textContent = text;
     handleOpenPopup(popupImage);
 }
 

@@ -14,8 +14,8 @@ export class Card {
         this._like = this._element.querySelector('.element__like');
     }
 
-    _handleShowImg(event) {
-        this._popupOpenHandler(event);
+    _handleShowImg(link, text) {
+        this._popupOpenHandler(link, text);
     }
 
     _handleElementLikeActive(event) {
@@ -31,7 +31,7 @@ export class Card {
         this._elementImage.setAttribute('src', this._link);
         this._elementImage.setAttribute('alt', `Фотография места с названием '${this._text}'.`);
         
-        this._elementImage.addEventListener('click', () => this._handleShowImg(this));
+        this._elementImage.addEventListener('click', () => this._handleShowImg(this._link, this._text));
         this._buttonDeleteCard.addEventListener('click', this._handleElementRemove);
         this._like.addEventListener('click', this._handleElementLikeActive);
 
