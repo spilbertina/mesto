@@ -88,7 +88,6 @@ function createCard(settings) {
 }
 
 function hanblePopupImageOpen(card) {
-    console.log(card)
     popupImageFigureImage.setAttribute('src', card._link);
     popupImageFigureImage.setAttribute('alt', card._text);
     popupImageFigureText.textContent = card._text;
