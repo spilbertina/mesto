@@ -1,6 +1,9 @@
 import { INITIAL_CARDS, VALIDATE_CONFIG } from './constans.js'
-import { Card } from './Card.js'
+import { Section } from './Section.js';
+import { PopupWithForm } from './Popups/PopupWithForm.js'
+import { PopupWithImage } from './Popups/PopupWithImage.js';
 import { FormValidator } from './FormValidator.js'
+import { Card } from './Card.js'
 
 const cardsSection = document.querySelector('.cards');
 const popups = Array.from(document.querySelectorAll('.popup'));
