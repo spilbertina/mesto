@@ -28,6 +28,18 @@ const popupImageFigureText = popupImage.querySelector('.popup__figure-text');
 
 const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
 const validatorPrifile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
+
+const section = new Section(
+    {
+        items: INITIAL_CARDS,
+        renderer: (cardSettings) => {
+            const card = createCard(cardSettings);
+            cardsSection.append(card.getElement());
+        }
+    },
+    '.cards');
+
+
 //-----Функции открытия и закрыия popup
 function handleClosePopupByEscape(event) {
     if (event.key === 'Escape') {
@@ -67,7 +79,7 @@ function handlePopupCardFormSubmit(event) {
     }
 
     const card = createCard(cardSettings);
-    cardsSection.prepend(card.getElement());
+    section.addItem(card.getElement());
 
     handleClosePopup(popupCard);
     popupCardForm.reset();
@@ -102,11 +114,8 @@ popupProfileOpen.addEventListener('click', handleEditProfile);
 popupProfileForm.addEventListener('submit', handlePopupProfileFormSubmit);
 popupCardForm.addEventListener('submit', handlePopupCardFormSubmit);
 
-//----------Функция для создания новых карточек
-INITIAL_CARDS.forEach((cardSettings) => {
-    const card = createCard(cardSettings);
-    cardsSection.append(card.getElement());
-});
+
+section.renderContent();
 
 // вешаем обработчики на попапы
 popups.forEach(popup => {
