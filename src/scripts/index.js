@@ -6,6 +6,8 @@ import { PopupWithImage } from './Popups/PopupWithImage.js';
 import { FormValidator } from './FormValidator.js'
 import { Card } from './Card.js'
 
+import '../pages/index.css'; // добавьте импорт главного файла стилей 
+
 const cardsSection = document.querySelector('.cards');
 
 const popupProfile = document.querySelector('.popup_profile');
@@ -86,7 +88,6 @@ imagePopup.setEventListeners();
 
 popupCardOpen.addEventListener('click', handleCreateNewCard);
 popupProfileOpen.addEventListener('click', handleEditProfile);
-
 
 section.renderContent();
 validatorNewCard.enableValidation();
