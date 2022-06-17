@@ -48,7 +48,7 @@ const section = new Section(
 const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormSubmit);
 profilePopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm('.popup_card');
+const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
 newCardPopup.setEventListeners();
 
 const imagePopup = new PopupWithImage('.popup_image');
@@ -85,20 +85,26 @@ function handlePopupProfileFormSubmit(info) {
 }
 
 //----------Функция для создания новой карточки
-// function handlePopupCardFormSubmit(event) {
-//     event.preventDefault();
+function handlePopupCardFormSubmit(info) {
+    //     event.preventDefault();
 
-//     const cardSettings = {
-//         name: popupCardTitle.value,
-//         link: popupCardLink.value
-//     }
+    // const cardSettings = {
+    //     name: popupCardTitle.value,
+    //     link: popupCardLink.value
+    // }
 
-//     const card = createCard(cardSettings);
-//     section.addItem(card.getElement());
+   const settings = {
+    name: info.title,
+    link: info.link
+   }
 
-//     handleClosePopup(popupCard);
-//     popupCardForm.reset();
-// }
+    const card = createCard(settings);
+    section.addItem(card.getElement());
+    //     section.addItem(card.getElement());
+
+    //     handleClosePopup(popupCard);
+    //     popupCardForm.reset();
+}
 
 function handleCreateNewCard() {
     validatorNewCard.checkFormValidityBeforeOpen();
@@ -107,8 +113,11 @@ function handleCreateNewCard() {
 }
 
 function handleEditProfile() {
-    //     popupProfileNameInput.value = profileName.textContent;
-    //     popupProfileJobInput.value = profileJob.textContent;
+
+    const { name, job } = userInfo.getUserInfo();
+
+    popupProfileNameInput.value = name;
+    popupProfileJobInput.value = job;
 
     validatorPrifile.checkFormValidityBeforeOpen();
     //     handleOpenPopup(popupProfile);
