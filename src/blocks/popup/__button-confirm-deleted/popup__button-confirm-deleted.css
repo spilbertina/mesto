@@ -1,4 +1,4 @@
-.popup__form-button {
+.popup__button-confirm-deleted {
     background-color: #000000;
     color: #fff;
     min-height: 50px;
@@ -13,20 +13,13 @@
     margin-top: auto;
 }
 
-.popup__form-button:hover {
+.popup__button-confirm-deleted:hover {
     cursor: pointer;
     opacity: 80%;
 }
 
-.popup__form-button:disabled{
-    opacity: 20%;
-    color: #000000;
-    background-color: #fff;
-    border: solid 1px #000000;
-}
-
 @media screen and (max-width: 650px) {
-    .popup__form-button {
+    .popup__button-confirm-deleted {
         min-height: 46px;
         min-width: 238px;
         font-size: 14px;
