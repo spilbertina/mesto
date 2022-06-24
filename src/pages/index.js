@@ -1,6 +1,6 @@
 import { VALIDATE_CONFIG } from '../utils/constans.js'
 import { UserInfo } from '../components/UserInfo.js';
-import { Avatar } from '../components/Avatar.js';
+import { AvatarInfo } from '../components/AvatarInfo.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/Popups/PopupWithForm.js'
 import { PopupWithImage } from '../components/Popups/PopupWithImage.js';
@@ -34,7 +34,7 @@ const userInfo = new UserInfo({
     nameSelector: '.profile__name',
     jobSelector: '.profile__job'
 });
-const avatar = new Avatar('.profile__avatar');
+const avatarInfo = new AvatarInfo('.profile__avatar');
 
 const api = new Api(
     'https://mesto.nomoreparties.co/v1/',
@@ -54,7 +54,7 @@ api.getUserInfo(res => {
         name: res.name,
         job: res.about
     });
-    avatar.setAvatar(res.avatar);
+    avatarInfo.setAvatar(res.avatar);
 });
 
 const section = new Section(
@@ -71,7 +71,6 @@ const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormS
 const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
 const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
 const imagePopup = new PopupWithImage('.popup_image');
-
 
 //----------Функция для отправки формы popupProfile
 function handlePopupProfileFormSubmit(info) {
@@ -102,7 +101,7 @@ function handlePopupCardFormSubmit(info) {
 
 function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link }, result => {
-        avatar.setAvatar(result.avatar);
+        avatarInfo.setAvatar(result.avatar);
     });
 
 }

@@ -1,4 +1,4 @@
-export class Avatar {
+export class AvatarInfo {
     constructor(avatarSelector) {
         this._avatarElement = document.querySelector(avatarSelector);
     }
