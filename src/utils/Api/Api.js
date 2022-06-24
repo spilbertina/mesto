@@ -1,6 +1,6 @@
-import { Get } from "./Get.js";
-import { Patch } from "./Patch.js";
-import { Post } from "./Post.js";
+import { Get } from "./Requests/Get.js";
+import { Patch } from "./Requests/Patch.js";
+import { Post } from "./Requests/Post.js";
 
 export class Api {
     constructor(baseUrl, login, token) {
@@ -25,8 +25,11 @@ export class Api {
         this._patch.query('users/me', data, callBack);
     }
 
-    testPost(data, callBack){
+    addCard(data, callBack){
         this._post.query('cards', data, callBack);
     }
-}
 
+    updateAvatar(data, callBack){
+        this._patch.query('users/me/avatar', data, callBack);
+    }
+}

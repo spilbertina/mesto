@@ -1,11 +1,12 @@
-import { INITIAL_CARDS, VALIDATE_CONFIG } from '../utils/constans.js'
+import { VALIDATE_CONFIG } from '../utils/constans.js'
 import { UserInfo } from '../components/UserInfo.js';
+import { Avatar } from '../components/Avatar.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/Popups/PopupWithForm.js'
 import { PopupWithImage } from '../components/Popups/PopupWithImage.js';
 import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
-import { Api } from '../utils/Api.js';
+import { Api } from '../utils/Api/Api.js';
 
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
@@ -21,13 +22,19 @@ const popupCard = document.querySelector('.popup_card');
 const popupCardOpen = document.querySelector('.profile__button');
 const popupCardForm = popupCard.querySelector('.popup__form');
 
+const popupAvatar = document.querySelector('.popup_avatar-editing');
+const popupAvatarOpen = document.querySelector('.profile__avatar');
+const popupAvatarForm = popupAvatar.querySelector('.popup__form');
+
 const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
-const validatorPrifile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
+const validatorProfile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
+const validatorAvatar = new FormValidator(VALIDATE_CONFIG, popupAvatarForm);
 
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
     jobSelector: '.profile__job'
 });
+const avatar = new Avatar('.profile__avatar');
 
 const api = new Api(
     'https://mesto.nomoreparties.co/v1/',
@@ -36,7 +43,8 @@ const api = new Api(
 
 api.getInitialCards(cards => {
     cards.forEach(i => {
-        const card = createCard(i);
+        const { name, link, likes } = i;
+        const card = createCard({ name, link, likes: likes.length });
         section.addItem(card.getElement());
     });
 });
@@ -44,9 +52,9 @@ api.getInitialCards(cards => {
 api.getUserInfo(res => {
     userInfo.setUserInfo({
         name: res.name,
-        job: res.about,
-        link: res.avatar
+        job: res.about
     });
+    avatar.setAvatar(res.avatar);
 });
 
 const section = new Section(
@@ -61,6 +69,7 @@ const section = new Section(
 
 const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormSubmit);
 const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
+const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
 const imagePopup = new PopupWithImage('.popup_image');
 
 
@@ -88,9 +97,14 @@ function handlePopupCardFormSubmit(info) {
 
     const card = createCard(cardSettings);
     section.addItem(card.getElement());
+    api.addCard(cardSettings, x => console.log(x));
+}
 
+function handlePopupAvatarFormSubmit(data) {
+    api.updateAvatar({ avatar: data.link }, result => {
+        avatar.setAvatar(result.avatar);
+    });
 
-    api.testPost(cardSettings, x=>console.log(x));
 }
 
 function handleCreateNewCard() {
@@ -104,7 +118,7 @@ function handleEditProfile() {
     popupProfileNameInput.value = name;
     popupProfileJobInput.value = job;
 
-    validatorPrifile.checkFormValidityBeforeOpen();
+    validatorProfile.checkFormValidityBeforeOpen();
     profilePopup.open();
 }
 
@@ -116,12 +130,20 @@ function hanblePopupImageOpen(link, text) {
     imagePopup.open(link, text);
 }
 
+function hanblePopupAvatarOpen() {
+    validatorAvatar.checkFormValidityBeforeOpen();
+    avatarPopup.open();
+}
+
 profilePopup.setEventListeners();
 newCardPopup.setEventListeners();
 imagePopup.setEventListeners();
+avatarPopup.setEventListeners();
 
 popupCardOpen.addEventListener('click', handleCreateNewCard);
 popupProfileOpen.addEventListener('click', handleEditProfile);
+popupAvatarOpen.addEventListener('click', hanblePopupAvatarOpen);
 
 validatorNewCard.enableValidation();
-validatorPrifile.enableValidation();
+validatorProfile.enableValidation();
+validatorAvatar.enableValidation();
