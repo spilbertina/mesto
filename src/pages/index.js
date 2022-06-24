@@ -5,6 +5,7 @@ import { PopupWithForm } from '../components/Popups/PopupWithForm.js'
 import { PopupWithImage } from '../components/Popups/PopupWithImage.js';
 import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
+import { Api } from '../utils/Api.js';
 
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
@@ -28,9 +29,29 @@ const userInfo = new UserInfo({
     jobSelector: '.profile__job'
 });
 
+const api = new Api(
+    'https://mesto.nomoreparties.co/v1/',
+    'cohort-43',
+    'ee068133-e055-42c6-88de-c45211ca2bd0');
+
+api.getInitialCards(cards => {
+    cards.forEach(i => {
+        const card = createCard(i);
+        section.addItem(card.getElement());
+    });
+});
+
+api.getUserInfo(res => {
+    userInfo.setUserInfo({
+        name: res.name,
+        job: res.about,
+        link: res.avatar
+    });
+});
+
 const section = new Section(
     {
-        items: INITIAL_CARDS,
+        items: [],
         renderer: (cardSettings) => {
             const card = createCard(cardSettings);
             cardsSection.append(card.getElement());
@@ -45,7 +66,17 @@ const imagePopup = new PopupWithImage('.popup_image');
 
 //----------Функция для отправки формы popupProfile
 function handlePopupProfileFormSubmit(info) {
-    userInfo.setUserInfo(info);
+    const data = {
+        name: info.name,
+        about: info.job
+    }
+
+    api.updateUserInfo(data, user => {
+        userInfo.setUserInfo({
+            name: user.name,
+            job: user.about
+        })
+    });
 }
 
 //----------Функция для создания новой карточки
@@ -57,6 +88,9 @@ function handlePopupCardFormSubmit(info) {
 
     const card = createCard(cardSettings);
     section.addItem(card.getElement());
+
+
+    api.testPost(cardSettings, x=>console.log(x));
 }
 
 function handleCreateNewCard() {
@@ -89,6 +123,5 @@ imagePopup.setEventListeners();
 popupCardOpen.addEventListener('click', handleCreateNewCard);
 popupProfileOpen.addEventListener('click', handleEditProfile);
 
-section.renderContent();
 validatorNewCard.enableValidation();
 validatorPrifile.enableValidation();
