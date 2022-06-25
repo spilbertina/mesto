@@ -8,8 +8,6 @@ import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
 import { Api } from '../utils/Api/Api.js';
 
-//"62b762697714be031b194dcf
-
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
 const cardsSection = document.querySelector('.cards');
@@ -27,8 +25,6 @@ const popupCardForm = popupCard.querySelector('.popup__form');
 const popupAvatar = document.querySelector('.popup_avatar-editing');
 const popupAvatarOpen = document.querySelector('.profile__avatar');
 const popupAvatarForm = popupAvatar.querySelector('.popup__form');
-
-//const popupConfirmDeleted = document.querySelector('.popup_confirm-deleted');
 
 const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
 const validatorProfile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
@@ -101,7 +97,6 @@ function handlePopupCardFormSubmit(cardInfo) {
     }
 
     api.addCard(newCard, addedCard => {
-        console.log(newCard, addedCard);
         newCard.ownerId = addedCard.owner._id;
         newCard.cardId = addedCard._id;
         newCard.likes = addedCard.likes;
