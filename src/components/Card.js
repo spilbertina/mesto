@@ -1,7 +1,7 @@
 import { Like } from "./Like.js";
 
 export class Card {
-    constructor(templateSelector, { ownerId, cardId, name, link, likes }, clickImageHandler, clickLikeHandler) {
+    constructor(templateSelector, userInfo, { ownerId, cardId, name, link, likes }, clickImageHandler, clickLikeHandler) {
         this._text = name;
         this._link = link;
         this._popupOpenHandler = clickImageHandler;
@@ -13,7 +13,7 @@ export class Card {
         this._elementImage = this._element.querySelector('.element__image');
         this._elementLike = this._element.querySelector('.element__number');
         this._buttonDeleteCard = this._element.querySelector('.element__trash');
-        this._like = new Like(ownerId, cardId, this._element, likes, clickLikeHandler);
+        this._like = new Like(userInfo.getUserInfo(), cardId, this._element, likes, clickLikeHandler);
     }
 
     _handleShowImg(link, text) {

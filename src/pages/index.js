@@ -43,8 +43,8 @@ const api = new Api(
 
 api.getInitialCards(cards => {
     cards.forEach(card => {
-        const { owner: {_id:ownerId}, _id:cardId, name, link, likes } = card;
-        const cardElement = createCard({ownerId, cardId, name, link, likes });
+        const { owner: { _id: ownerId }, _id: cardId, name, link, likes } = card;
+        const cardElement = createCard({ ownerId, cardId, name, link, likes });
         section.addItem(cardElement.getElement());
     });
 });
@@ -126,7 +126,7 @@ function handleEditProfile() {
 }
 
 function createCard(settings) {
-    return new Card('.template', settings, hanblePopupImageOpen, hanbleCardSetLike);
+    return new Card('.template', userInfo, settings, hanblePopupImageOpen, hanbleCardSetLike);
 }
 
 function hanblePopupImageOpen(link, text) {
@@ -138,14 +138,15 @@ function hanblePopupAvatarOpen() {
     avatarPopup.open();
 }
 
-function hanbleCardSetLike(card) {
-    card.isLike()
-        ? api.deleteLike(card._cardId, x => {
-            card.setLike(x.likes);
+function hanbleCardSetLike(like) {
+    like.isLike()
+        ? api.deleteLike(like._cardId, x => {
+            like.setLike(x.likes);
         })
-        : api.setLike(card._cardId, x => {
-            card.setLike(x.likes);
+        : api.setLike(like._cardId, x => {
+            like.setLike(x.likes);
         });
+
 }
 
 profilePopup.setEventListeners();
