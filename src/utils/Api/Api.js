@@ -44,4 +44,8 @@ export class Api {
     deleteLike(cardId, callBack){
         this._delete.query(`cards/${cardId}/likes`, callBack);
     }
+
+    deleteCard(cardId, callBack){
+        this._delete.query(`cards/${cardId}`, callBack);
+    }
 }

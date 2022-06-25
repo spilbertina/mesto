@@ -20,11 +20,11 @@
                         src="<%=require('./images/Avatar.svg')%>"
                         alt="Фотография на автварке"
                     />
-                    <button 
-                    class="profile__avatar-editing" 
-                    aria-label="Ручка"
-                    type="button">    
-                    </button>
+                    <button
+                        class="profile__avatar-editing"
+                        aria-label="Ручка"
+                        type="button"
+                    ></button>
                     <div class="profile__info">
                         <div class="profile__title">
                             <h1 class="profile__name"></h1>
@@ -171,9 +171,9 @@
                     />
                 </button>
                 <h2 class="popup__title">Вы уверены?</h2>
-                <button class="popup__button-confirm-deleted">
-                    Да
-                </button>
+                <form class="popup__form" name="avatar" novalidate>
+                    <button class="popup__button-confirm-deleted">Да</button>
+                </form>
             </div>
         </div>
 

@@ -26,6 +26,8 @@ const popupAvatar = document.querySelector('.popup_avatar-editing');
 const popupAvatarOpen = document.querySelector('.profile__avatar');
 const popupAvatarForm = popupAvatar.querySelector('.popup__form');
 
+const popupConfirmDeleted = document.querySelector('.popup_confirm-deleted');
+
 const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
 const validatorProfile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
 const validatorAvatar = new FormValidator(VALIDATE_CONFIG, popupAvatarForm);
@@ -72,6 +74,7 @@ const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormS
 const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
 const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
 const imagePopup = new PopupWithImage('.popup_image');
+const confirmPopup = new PopupWithForm('.popup_confirm-deleted', handleCardDeleteConfirm);
 
 //----------Функция для отправки формы popupProfile
 function handlePopupProfileFormSubmit(info) {
@@ -126,7 +129,13 @@ function handleEditProfile() {
 }
 
 function createCard(settings) {
-    return new Card('.template', userInfo, settings, hanblePopupImageOpen, hanbleCardSetLike);
+    return new Card(
+        '.template',
+        userInfo,
+        settings,
+        hanblePopupImageOpen,
+        hanbleCardSetLike,
+        handleCardDeletePopupOpen);
 }
 
 function hanblePopupImageOpen(link, text) {
@@ -138,21 +147,29 @@ function hanblePopupAvatarOpen() {
     avatarPopup.open();
 }
 
+function handleCardDeletePopupOpen() {
+    confirmPopup.open();
+}
+
+function handleCardDeleteConfirm(cardId){
+    api.deleteCard(cardId);
+}
+
 function hanbleCardSetLike(like) {
     like.isLike()
-        ? api.deleteLike(like._cardId, x => {
+        ? api.deleteLike(like.getCardId(), x => {
             like.setLike(x.likes);
         })
-        : api.setLike(like._cardId, x => {
+        : api.setLike(like.getCardId(), x => {
             like.setLike(x.likes);
         });
-
 }
 
 profilePopup.setEventListeners();
 newCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 avatarPopup.setEventListeners();
+confirmPopup.setEventListeners();
 
 popupCardOpen.addEventListener('click', handleCreateNewCard);
 popupProfileOpen.addEventListener('click', handleEditProfile);

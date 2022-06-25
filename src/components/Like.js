@@ -1,11 +1,10 @@
 export class Like {
-    constructor({id}, cardId, element, likes, clickHandler) {
-        this._cardId = cardId;
-        this._ownerId = id;
+    constructor(card, likes, clickHandler) {
+        this._card = card;
         this._likes = likes;
         this._handler = clickHandler.bind(this);
-        this._likeElement = element.querySelector('.element__like');
-        this._likeCounterElement = element.querySelector('.element__number');
+        this._likeElement = card._element.querySelector('.element__like');
+        this._likeCounterElement = card._element.querySelector('.element__number');
         this._likeElement.addEventListener('click', this._likeHendler.bind(this));
         this._likeCounterElement.textContent = likes.length;
     }
@@ -17,6 +16,10 @@ export class Like {
 
     isLike() {
         return this._isHasMyLike();
+    }
+
+    getCardId(){
+        return this._card._id;
     }
 
     updateLike() {
@@ -32,6 +35,6 @@ export class Like {
     }
 
     _isHasMyLike() {
-        return this._likes.some(x => x._id == this._ownerId);
+        return this._likes.some(x => x._id == this._card._userInfo.id);
     }
 }
