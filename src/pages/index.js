@@ -86,6 +86,8 @@ function handlePopupProfileFormSubmit(info) {
             name: user.name,
             job: user.about
         })
+
+        profilePopup.close();
     });
 }
 
@@ -102,12 +104,15 @@ function handlePopupCardFormSubmit(cardInfo) {
         newCard.likes = addedCard.likes;
         const card = createCard(newCard);
         section.addItem(card.getElement());
+
+        newCardPopup.close();
     });
 }
 
 function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link }, result => {
         avatarInfo.setAvatar(result.avatar);
+        avatarPopup.close();
     });
 }
 
@@ -158,6 +163,7 @@ function hanbleCardSetLike(like) {
 function handleDeleteConfirm({ id }) {
     api.deleteCard(id, () => {
         document.getElementById(id).remove();
+        confirmPopup.close();
     });
 }
 
