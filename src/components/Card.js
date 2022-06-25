@@ -8,7 +8,7 @@ export class Card {
         { ownerId, cardId, name, link, likes },
         clickImageHandler,
         clickLikeHandler,
-        clickDeleteHendler
+        deleteConfirmPopup
     ) {
         this._text = name;
         this._link = link;
@@ -16,23 +16,24 @@ export class Card {
         this._ownerId = ownerId;
         this._userInfo = userInfo.getUserInfo();
         this._popupOpenHandler = clickImageHandler;
-        this._templateSelector = templateSelector;
-        this._element = document.querySelector(this._templateSelector)
+        this._element = document.querySelector(templateSelector)
             .content
             .cloneNode(true);
         this._elementTitle = this._element.querySelector('.element__title');
         this._elementImage = this._element.querySelector('.element__image');
         this._elementLike = this._element.querySelector('.element__number');
-        
+
+        this._confirmPopup = deleteConfirmPopup;
+
         this._like = new Like(this, likes, clickLikeHandler);
-        this._trash = new Trash(this, clickDeleteHendler);
+        this._trash = new Trash(this);
     }
 
     getElement() {
         this._elementTitle.textContent = this._text;
+        this._element.querySelector('.element').setAttribute('id', this._id)
         this._elementImage.setAttribute('src', this._link);
         this._elementImage.setAttribute('alt', `Фотография места с названием '${this._text}'.`);
-
         this._elementImage.addEventListener('click', () => this._handleShowImg(this._link, this._text));
 
         this._like.updateLike();
@@ -40,7 +41,13 @@ export class Card {
         return this._element;
     }
 
+
+    remove() {
+        this._element.closest('.element').remove();
+    }
+
     _handleShowImg(link, text) {
+        this.remove()
         this._popupOpenHandler(link, text);
     }
 }

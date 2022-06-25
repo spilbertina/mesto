@@ -38,6 +38,7 @@ export class Api {
     }
 
     setLike(cardId, callBack){
+        console.log(823823);
         this._put.query(`cards/${cardId}/likes`, callBack);
     }
 

@@ -1,11 +1,9 @@
 export class Trash {
-    constructor(card, clickDeleteHendler) {
+    constructor(card) {
         this._card = card;
-        this._clickDeleteHendler = clickDeleteHendler;
+        this._confirmPopup = this._card._confirmPopup;
         this._buttonDeleteCard = this._card._element.querySelector('.element__trash');
-
-        this._buttonDeleteCard.addEventListener('click', () => this._handleElementRemove());
-
+        this._buttonDeleteCard.addEventListener('click', () => this._openPopup());
     }
 
     removeDeleteButton() {
@@ -14,7 +12,8 @@ export class Trash {
         }
     }
 
-    _handleElementRemove() {
-        this._clickDeleteHendler();
+    _openPopup() {
+        this._confirmPopup._form.id.value = this._card._id;
+        this._confirmPopup.open();
     }
 }

@@ -8,6 +8,8 @@ import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
 import { Api } from '../utils/Api/Api.js';
 
+//"62b762697714be031b194dcf
+
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
 const cardsSection = document.querySelector('.cards');
@@ -26,7 +28,7 @@ const popupAvatar = document.querySelector('.popup_avatar-editing');
 const popupAvatarOpen = document.querySelector('.profile__avatar');
 const popupAvatarForm = popupAvatar.querySelector('.popup__form');
 
-const popupConfirmDeleted = document.querySelector('.popup_confirm-deleted');
+//const popupConfirmDeleted = document.querySelector('.popup_confirm-deleted');
 
 const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
 const validatorProfile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
@@ -74,7 +76,7 @@ const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormS
 const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
 const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
 const imagePopup = new PopupWithImage('.popup_image');
-const confirmPopup = new PopupWithForm('.popup_confirm-deleted', handleCardDeleteConfirm);
+const confirmPopup = new PopupWithForm('.popup_confirm-deleted', handleDeleteConfirm);
 
 //----------Функция для отправки формы popupProfile
 function handlePopupProfileFormSubmit(info) {
@@ -99,6 +101,7 @@ function handlePopupCardFormSubmit(cardInfo) {
     }
 
     api.addCard(newCard, addedCard => {
+        console.log(newCard, addedCard);
         newCard.ownerId = addedCard.owner._id;
         newCard.cardId = addedCard._id;
         newCard.likes = addedCard.likes;
@@ -135,7 +138,7 @@ function createCard(settings) {
         settings,
         hanblePopupImageOpen,
         hanbleCardSetLike,
-        handleCardDeletePopupOpen);
+        confirmPopup);
 }
 
 function hanblePopupImageOpen(link, text) {
@@ -147,14 +150,6 @@ function hanblePopupAvatarOpen() {
     avatarPopup.open();
 }
 
-function handleCardDeletePopupOpen() {
-    confirmPopup.open();
-}
-
-function handleCardDeleteConfirm(cardId){
-    api.deleteCard(cardId);
-}
-
 function hanbleCardSetLike(like) {
     like.isLike()
         ? api.deleteLike(like.getCardId(), x => {
@@ -163,6 +158,12 @@ function hanbleCardSetLike(like) {
         : api.setLike(like.getCardId(), x => {
             like.setLike(x.likes);
         });
+}
+
+function handleDeleteConfirm({ id }) {
+    api.deleteCard(id, () => {
+        document.getElementById(id).remove();
+    });
 }
 
 profilePopup.setEventListeners();
