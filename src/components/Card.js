@@ -41,13 +41,7 @@ export class Card {
         return this._element;
     }
 
-
-    remove() {
-        this._element.closest('.element').remove();
-    }
-
     _handleShowImg(link, text) {
-        this.remove()
         this._popupOpenHandler(link, text);
     }
 }
