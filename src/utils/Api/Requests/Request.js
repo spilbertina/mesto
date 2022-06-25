@@ -5,22 +5,24 @@ export class Request {
 
         this._settings = {
             method: method,
-            headers: { 
-                authorization: token 
+            headers: {
+                authorization: token
             }
         };
     }
-
     _makeUrl(path) {
         return `${this._baseUrl}/${this._login}/${path}`;
     }
 
-    _query(settings, path, callBack){
+    _query(settings, path, callBack) {
         fetch(this._makeUrl(path), settings).then(res => {
             if (res.ok) {
                 res.json().then(x => { callBack(x) });
             }
-            //return Promise.reject(`Ошибка: ${res.status}`);
+            else {
+                console.log(
+                    `${settings.method} запрос по адресу ${this._makeUrl(path)} завершился ошибкой: ${res.status}`);
+            }
         });
     }
 }

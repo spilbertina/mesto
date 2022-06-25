@@ -42,15 +42,16 @@ const api = new Api(
     'ee068133-e055-42c6-88de-c45211ca2bd0');
 
 api.getInitialCards(cards => {
-    cards.forEach(i => {
-        const { name, link, likes } = i;
-        const card = createCard({ name, link, likes: likes.length });
-        section.addItem(card.getElement());
+    cards.forEach(card => {
+        const { owner: {_id:ownerId}, _id:cardId, name, link, likes } = card;
+        const cardElement = createCard({ownerId, cardId, name, link, likes });
+        section.addItem(cardElement.getElement());
     });
 });
 
 api.getUserInfo(res => {
     userInfo.setUserInfo({
+        id: res._id,
         name: res.name,
         job: res.about
     });
@@ -88,22 +89,25 @@ function handlePopupProfileFormSubmit(info) {
 }
 
 //----------Функция для создания новой карточки
-function handlePopupCardFormSubmit(info) {
-    const cardSettings = {
-        name: info.title,
-        link: info.link
+function handlePopupCardFormSubmit(cardInfo) {
+    const newCard = {
+        name: cardInfo.title,
+        link: cardInfo.link
     }
 
-    const card = createCard(cardSettings);
-    section.addItem(card.getElement());
-    api.addCard(cardSettings, x => console.log(x));
+    api.addCard(newCard, addedCard => {
+        newCard.ownerId = addedCard.owner._id;
+        newCard.cardId = addedCard._id;
+        newCard.likes = addedCard.likes;
+        const card = createCard(newCard);
+        section.addItem(card.getElement());
+    });
 }
 
 function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link }, result => {
         avatarInfo.setAvatar(result.avatar);
     });
-
 }
 
 function handleCreateNewCard() {
@@ -122,7 +126,7 @@ function handleEditProfile() {
 }
 
 function createCard(settings) {
-    return new Card('.template', settings, hanblePopupImageOpen);
+    return new Card('.template', settings, hanblePopupImageOpen, hanbleCardSetLike);
 }
 
 function hanblePopupImageOpen(link, text) {
@@ -132,6 +136,16 @@ function hanblePopupImageOpen(link, text) {
 function hanblePopupAvatarOpen() {
     validatorAvatar.checkFormValidityBeforeOpen();
     avatarPopup.open();
+}
+
+function hanbleCardSetLike(card) {
+    card.isLike()
+        ? api.deleteLike(card._cardId, x => {
+            card.setLike(x.likes);
+        })
+        : api.setLike(card._cardId, x => {
+            card.setLike(x.likes);
+        });
 }
 
 profilePopup.setEventListeners();
