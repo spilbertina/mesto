@@ -67,7 +67,7 @@ function handlePopupProfileFormSubmit(info) {
                 job: user.about
             })
         })
-        .catch()
+        .catch(err => console.log(err))
         .finally(x => profilePopup.close());
 }
 
@@ -137,18 +137,18 @@ function hanbleCardSetLike(like) {
     like.isLike()
         ? api.deleteLike(like.getCardId())
             .then(x => like.setLike(x.likes))
-            .catch()
+            .catch(err => console.log(err))
             .finally()
         : api.setLike(like.getCardId())
             .then(x => like.setLike(x.likes))
-            .catch()
-            .finally()
+            .catch(err => console.log(err))
+            .finally();
 }
 
 function handleDeleteConfirm({ id }) {
     api.deleteCard(id)
         .then()
-        .catch()
+        .catch(err => console.log(err))
         .finally(() => {
             document.getElementById(id).remove();
             confirmPopup.close();
@@ -193,5 +193,5 @@ Promise.all([userInfoPromice, userAllCardPromice])
         userInfoUpdate(user);
         createAllCard(cards);
     })
-    .catch()
+    .catch(err => console.log(err))
     .finally();
