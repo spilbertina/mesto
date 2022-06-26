@@ -1,6 +1,5 @@
 import { VALIDATE_CONFIG } from '../utils/constans.js'
 import { UserInfo } from '../components/UserInfo.js';
-import { AvatarInfo } from '../components/AvatarInfo.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/Popups/PopupWithForm.js'
 import { PopupWithImage } from '../components/Popups/PopupWithImage.js';
@@ -8,7 +7,7 @@ import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
 import { Api } from '../utils/Api/Api.js';
 
-import '../pages/index.css'; // добавьте импорт главного файла стилей 
+import '../pages/index.css'; 
 
 const cardsSection = document.querySelector('.cards');
 
@@ -32,9 +31,9 @@ const validatorAvatar = new FormValidator(VALIDATE_CONFIG, popupAvatarForm);
 
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
-    jobSelector: '.profile__job'
+    jobSelector: '.profile__job',
+    avatarSelector: '.profile__avatar'
 });
-const avatarInfo = new AvatarInfo('.profile__avatar');
 
 const api = new Api(
     'https://mesto.nomoreparties.co/v1/',
@@ -53,9 +52,9 @@ api.getUserInfo(res => {
     userInfo.setUserInfo({
         id: res._id,
         name: res.name,
-        job: res.about
+        job: res.about,
+        avatar: res.avatar
     });
-    avatarInfo.setAvatar(res.avatar);
 });
 
 const section = new Section(
