@@ -174,9 +174,6 @@ const api = new Api(
     'cohort-43',
     'ee068133-e055-42c6-88de-c45211ca2bd0');
 
-const userAllCardPromice = api.getInitialCards();
-const userInfoPromice = api.getUserInfo();
-
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
     jobSelector: '.profile__job',
@@ -188,6 +185,8 @@ const section = new Section('.cards', (data) => {
     cardsSection.append(card.getElement());
 });
 
+const userAllCardPromice = api.getInitialCards();
+const userInfoPromice = api.getUserInfo();
 Promise.all([userInfoPromice, userAllCardPromice])
     .then(([user, cards]) => {
         userInfoUpdate(user);
