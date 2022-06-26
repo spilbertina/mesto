@@ -14,15 +14,19 @@ export class Request {
         return `${this._baseUrl}/${this._login}/${path}`;
     }
 
-    _query(settings, path, callBack) {
-        fetch(this._makeUrl(path), settings).then(res => {
-            if (res.ok) {
-                res.json().then(x => { callBack(x) });
-            }
-            else {
-                console.log(
-                    `${settings.method} запрос по адресу ${this._makeUrl(path)} завершился ошибкой: ${res.status}`);
-            }
-        });
+    _checkResponse(res, path, callBack) {
+        if (res.ok) {
+            res.json().then(x => { callBack(x) })
+        }
+        else {
+            console.log(`${this._settings.method} запрос по адресу ${this._makeUrl(path)} завершился ошибкой: ${res.status}`);
+        }
+    }
+
+    _query(path, callBack) {
+        fetch(this._makeUrl(path), this._settings)
+            .then(res =>
+                this._checkResponse(res, path, callBack)
+            )
     }
 }

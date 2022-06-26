@@ -8,6 +8,6 @@ export class RequestWithData extends Request {
 
     query(path, data, callBack) {
         this._settings.body = JSON.stringify(data);
-        this._query(this._settings, path, callBack);
+        this._query(path, callBack);
     }
 }

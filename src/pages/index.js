@@ -53,8 +53,9 @@ api.getUserInfo(res => {
         id: res._id,
         name: res.name,
         job: res.about,
-        avatar: res.avatar
     });
+
+    userInfo.setAvatar(res.avatar);
 });
 
 const section = new Section(
@@ -110,7 +111,7 @@ function handlePopupCardFormSubmit(cardInfo) {
 
 function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link }, result => {
-        avatarInfo.setAvatar(result.avatar);
+        userInfo.setAvatar(result.avatar);
         avatarPopup.close();
     });
 }

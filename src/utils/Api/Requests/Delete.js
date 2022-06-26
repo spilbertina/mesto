@@ -6,6 +6,6 @@ export class Delete extends RequestWithData {
     }
 
     query(path, callBack) {
-        this._query(this._settings, path, callBack);
+        this._query(path, callBack);
     }
 }
