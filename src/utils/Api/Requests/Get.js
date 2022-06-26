@@ -6,6 +6,6 @@ export class Get extends Request {
     }
 
     query(path, callBack) {
-       this._query(path, callBack);
+       return this._query(path, callBack);
     }
 }

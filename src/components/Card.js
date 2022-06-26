@@ -14,7 +14,7 @@ export class Card {
         this._link = link;
         this._id = cardId;
         this._ownerId = ownerId;
-        this._userInfo = userInfo.getUserInfo();
+        this._userInfo = userInfo;
         this._popupOpenHandler = clickImageHandler;
         this._element = document.querySelector(templateSelector)
             .content

@@ -7,7 +7,7 @@ import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
 import { Api } from '../utils/Api/Api.js';
 
-import '../pages/index.css'; 
+import '../pages/index.css';
 
 const cardsSection = document.querySelector('.cards');
 
@@ -29,26 +29,21 @@ const validatorNewCard = new FormValidator(VALIDATE_CONFIG, popupCardForm);
 const validatorProfile = new FormValidator(VALIDATE_CONFIG, popupProfileForm);
 const validatorAvatar = new FormValidator(VALIDATE_CONFIG, popupAvatarForm);
 
-const userInfo = new UserInfo({
-    nameSelector: '.profile__name',
-    jobSelector: '.profile__job',
-    avatarSelector: '.profile__avatar'
-});
+const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormSubmit);
+const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
+const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
+const imagePopup = new PopupWithImage('.popup_image');
+const confirmPopup = new PopupWithForm('.popup_confirm-deleted', handleDeleteConfirm);
 
-const api = new Api(
-    'https://mesto.nomoreparties.co/v1/',
-    'cohort-43',
-    'ee068133-e055-42c6-88de-c45211ca2bd0');
-
-api.getInitialCards(cards => {
+function createAllCard(cards) {
     cards.forEach(card => {
         const { owner: { _id: ownerId }, _id: cardId, name, link, likes } = card;
         const cardElement = createCard({ ownerId, cardId, name, link, likes });
         section.addItem(cardElement.getElement());
     });
-});
+}
 
-api.getUserInfo(res => {
+function userInfoUpdate(res) {
     userInfo.setUserInfo({
         id: res._id,
         name: res.name,
@@ -56,23 +51,7 @@ api.getUserInfo(res => {
     });
 
     userInfo.setAvatar(res.avatar);
-});
-
-const section = new Section(
-    {
-        items: [],
-        renderer: (cardSettings) => {
-            const card = createCard(cardSettings);
-            cardsSection.append(card.getElement());
-        }
-    },
-    '.cards');
-
-const profilePopup = new PopupWithForm('.popup_profile', handlePopupProfileFormSubmit);
-const newCardPopup = new PopupWithForm('.popup_card', handlePopupCardFormSubmit);
-const avatarPopup = new PopupWithForm('.popup_avatar-editing', handlePopupAvatarFormSubmit);
-const imagePopup = new PopupWithImage('.popup_image');
-const confirmPopup = new PopupWithForm('.popup_confirm-deleted', handleDeleteConfirm);
+}
 
 //----------Функция для отправки формы popupProfile
 function handlePopupProfileFormSubmit(info) {
@@ -81,14 +60,15 @@ function handlePopupProfileFormSubmit(info) {
         about: info.job
     }
 
-    api.updateUserInfo(data, user => {
-        userInfo.setUserInfo({
-            name: user.name,
-            job: user.about
+    api.updateUserInfo(data)
+        .then((user) => {
+            userInfo.setUserInfo({
+                name: user.name,
+                job: user.about
+            })
         })
-
-        profilePopup.close();
-    });
+        .catch()
+        .finally(x => profilePopup.close());
 }
 
 //----------Функция для создания новой карточки
@@ -98,22 +78,25 @@ function handlePopupCardFormSubmit(cardInfo) {
         link: cardInfo.link
     }
 
-    api.addCard(newCard, addedCard => {
-        newCard.ownerId = addedCard.owner._id;
-        newCard.cardId = addedCard._id;
-        newCard.likes = addedCard.likes;
-        const card = createCard(newCard);
-        section.addItem(card.getElement());
-
-        newCardPopup.close();
-    });
+    api.addCard(newCard)
+        .then((addedCard) => {
+            newCard.ownerId = addedCard.owner._id;
+            newCard.cardId = addedCard._id;
+            newCard.likes = addedCard.likes;
+            const card = createCard(newCard);
+            section.addItem(card.getElement());
+        })
+        .catch(err => console.log(err))
+        .finally(x => newCardPopup.close());
 }
 
 function handlePopupAvatarFormSubmit(data) {
-    api.updateAvatar({ avatar: data.link }, result => {
-        userInfo.setAvatar(result.avatar);
-        avatarPopup.close();
-    });
+    api.updateAvatar({ avatar: data.link })
+        .then(result => {
+            userInfo.setAvatar(result.avatar);
+        })
+        .catch(err => console.log(err))
+        .finally(x => avatarPopup.close());
 }
 
 function handleCreateNewCard() {
@@ -152,19 +135,24 @@ function hanblePopupAvatarOpen() {
 
 function hanbleCardSetLike(like) {
     like.isLike()
-        ? api.deleteLike(like.getCardId(), x => {
-            like.setLike(x.likes);
-        })
-        : api.setLike(like.getCardId(), x => {
-            like.setLike(x.likes);
-        });
+        ? api.deleteLike(like.getCardId())
+            .then(x => like.setLike(x.likes))
+            .catch()
+            .finally()
+        : api.setLike(like.getCardId())
+            .then(x => like.setLike(x.likes))
+            .catch()
+            .finally()
 }
 
 function handleDeleteConfirm({ id }) {
-    api.deleteCard(id, () => {
-        document.getElementById(id).remove();
-        confirmPopup.close();
-    });
+    api.deleteCard(id)
+        .then()
+        .catch()
+        .finally(() => {
+            document.getElementById(id).remove();
+            confirmPopup.close();
+        });
 }
 
 profilePopup.setEventListeners();
@@ -180,3 +168,30 @@ popupAvatarOpen.addEventListener('click', hanblePopupAvatarOpen);
 validatorNewCard.enableValidation();
 validatorProfile.enableValidation();
 validatorAvatar.enableValidation();
+
+const api = new Api(
+    'https://mesto.nomoreparties.co/v1/',
+    'cohort-43',
+    'ee068133-e055-42c6-88de-c45211ca2bd0');
+
+const userAllCardPromice = api.getInitialCards();
+const userInfoPromice = api.getUserInfo();
+
+const userInfo = new UserInfo({
+    nameSelector: '.profile__name',
+    jobSelector: '.profile__job',
+    avatarSelector: '.profile__avatar'
+});
+
+const section = new Section('.cards', (data) => {
+    const card = createCard(data);
+    cardsSection.append(card.getElement());
+});
+
+Promise.all([userInfoPromice, userAllCardPromice])
+    .then(([user, cards]) => {
+        userInfoUpdate(user);
+        createAllCard(cards);
+    })
+    .catch()
+    .finally();

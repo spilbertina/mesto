@@ -6,6 +6,6 @@ export class Put extends RequestWithData {
     }
 
     query(path, callBack) {
-        this._query(path, callBack);
+        return this._query(path, callBack);
     }
 }

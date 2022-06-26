@@ -14,19 +14,19 @@ export class Request {
         return `${this._baseUrl}/${this._login}/${path}`;
     }
 
-    _checkResponse(res, path, callBack) {
+    _checkResponse(res) {
         if (res.ok) {
-            res.json().then(x => { callBack(x) })
+            return res.json();
         }
         else {
-            console.log(`${this._settings.method} запрос по адресу ${this._makeUrl(path)} завершился ошибкой: ${res.status}`);
+            return Promise.reject(`Ошибка ${res.status}`);
         }
     }
 
-    _query(path, callBack) {
-        fetch(this._makeUrl(path), this._settings)
+    _query(path) {
+        return fetch(this._makeUrl(path), this._settings)
             .then(res =>
-                this._checkResponse(res, path, callBack)
+                this._checkResponse(res)
             )
     }
 }

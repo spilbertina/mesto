@@ -35,6 +35,6 @@ export class Like {
     }
 
     _isHasMyLike() {
-        return this._likes.some(x => x._id == this._card._userInfo.id);
+        return this._likes.some(x => x._id == this._card._userInfo._id);
     }
 }

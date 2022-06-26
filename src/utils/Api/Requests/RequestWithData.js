@@ -6,8 +6,8 @@ export class RequestWithData extends Request {
         this._settings.headers['Content-Type'] = 'application/json';
     }
 
-    query(path, data, callBack) {
+    query(path, data) {
         this._settings.body = JSON.stringify(data);
-        this._query(path, callBack);
+        return this._query(path);
     }
 }

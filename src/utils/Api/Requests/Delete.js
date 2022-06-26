@@ -5,7 +5,7 @@ export class Delete extends RequestWithData {
         super('DELETE', baseUrl, login, token);
     }
 
-    query(path, callBack) {
-        this._query(path, callBack);
+    query(path) {
+        return this._query(path);
     }
 }

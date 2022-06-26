@@ -18,10 +18,10 @@ export class UserInfo {
     setUserInfo({ id, name, job }) {
         this._id = id;
         this._nameElement.textContent = name;
-        this._jobElement.textContent = job; 
+        this._jobElement.textContent = job;
     }
 
-    setAvatar(avatar){
+    setAvatar(avatar) {
         this._avatarElement.setAttribute('src', avatar);
     }
 }

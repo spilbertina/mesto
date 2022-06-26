@@ -7,7 +7,7 @@ export class Trash {
     }
 
     removeDeleteButton() {
-        if (this._card._userInfo.id != this._card._ownerId) {
+        if (this._card._userInfo._id != this._card._ownerId) {
             this._buttonDeleteCard.remove();
         }
     }

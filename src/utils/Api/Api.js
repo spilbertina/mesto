@@ -17,35 +17,35 @@ export class Api {
         this._delete = new Delete(this._baseUrl, this._login, this._token)
     }
 
-    getInitialCards(callBack) {
-        this._get.query('cards', callBack);
+    getInitialCards() {
+        return this._get.query('cards');
     }
 
-    getUserInfo(callBack) {
-        this._get.query('users/me', callBack);
+    getUserInfo() {
+        return this._get.query('users/me');
     }
 
-    updateUserInfo(data, callBack) {
-        this._patch.query('users/me', data, callBack);
+    updateUserInfo(data) {
+        return this._patch.query('users/me', data);
     }
 
-    addCard(data, callBack){
-        this._post.query('cards', data, callBack);
+    addCard(data) {
+        return this._post.query('cards', data);
     }
 
-    updateAvatar(data, callBack){
-        this._patch.query('users/me/avatar', data, callBack);
+    updateAvatar(data) {
+        return this._patch.query('users/me/avatar', data);
     }
 
-    setLike(cardId, callBack){
-        this._put.query(`cards/${cardId}/likes`, callBack);
+    setLike(cardId) {
+        return this._put.query(`cards/${cardId}/likes`);
     }
 
-    deleteLike(cardId, callBack){
-        this._delete.query(`cards/${cardId}/likes`, callBack);
+    deleteLike(cardId) {
+        return this._delete.query(`cards/${cardId}/likes`);
     }
 
-    deleteCard(cardId, callBack){
-        this._delete.query(`cards/${cardId}`, callBack);
+    deleteCard(cardId) {
+        return this._delete.query(`cards/${cardId}`);
     }
 }
