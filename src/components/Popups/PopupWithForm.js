@@ -14,14 +14,17 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const inputValues = this._getInputValues();
             this._submitButton.textContent = this._originButtonText + '...';
+            const inputValues = this._getInputValues();
             this._submitHandler(inputValues);
         });
     }
 
-    close() {
+    setSuccess(){
         this._submitButton.textContent = this._originButtonText;
+    }
+
+    close() {
         this._form.reset();
         super.close();
     }

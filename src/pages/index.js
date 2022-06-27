@@ -63,9 +63,11 @@ function handlePopupProfileFormSubmit(info) {
     api.updateUserInfo(data)
         .then((user) => {
             userInfo.setUserInfo({
+                id: user._id,
                 name: user.name,
                 job: user.about
             })
+            profilePopup.setSuccess();
         })
         .catch(err => console.log(err))
         .finally(x => profilePopup.close());
@@ -77,7 +79,7 @@ function handlePopupCardFormSubmit(cardInfo) {
         name: cardInfo.title,
         link: cardInfo.link
     }
-
+    newCardPopup
     api.addCard(newCard)
         .then((addedCard) => {
             newCard.ownerId = addedCard.owner._id;
@@ -94,6 +96,7 @@ function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link })
         .then(result => {
             userInfo.setAvatar(result.avatar);
+            avatarPopup.setSuccess();
         })
         .catch(err => console.log(err))
         .finally(x => avatarPopup.close());
@@ -147,7 +150,9 @@ function hanbleCardSetLike(like) {
 
 function handleDeleteConfirm({ id }) {
     api.deleteCard(id)
-        .then()
+        .then(()=>{
+            confirmPopup.setSuccess();
+        })
         .catch(err => console.log(err))
         .finally(() => {
             document.getElementById(id).remove();
