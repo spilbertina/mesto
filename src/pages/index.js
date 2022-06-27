@@ -79,7 +79,6 @@ function handlePopupCardFormSubmit(cardInfo) {
         name: cardInfo.title,
         link: cardInfo.link
     }
-    newCardPopup
     api.addCard(newCard)
         .then((addedCard) => {
             newCard.ownerId = addedCard.owner._id;
@@ -87,6 +86,7 @@ function handlePopupCardFormSubmit(cardInfo) {
             newCard.likes = addedCard.likes;
             const card = createCard(newCard);
             section.addItem(card.getElement());
+            newCardPopup.setSuccess();
         })
         .catch(err => console.log(err))
         .finally(x => newCardPopup.close());
