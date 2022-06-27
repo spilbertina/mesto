@@ -20,7 +20,7 @@ export class PopupWithForm extends Popup {
         });
     }
 
-    setSuccess(){
+    resetButtonText(){
         this._submitButton.textContent = this._originButtonText;
     }
 

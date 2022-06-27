@@ -67,10 +67,10 @@ function handlePopupProfileFormSubmit(info) {
                 name: user.name,
                 job: user.about
             })
-            profilePopup.setSuccess();
+            profilePopup.close()
         })
         .catch(err => console.log(err))
-        .finally(x => profilePopup.close());
+        .finally(x => profilePopup.resetButtonText());
 }
 
 //----------Функция для создания новой карточки
@@ -86,20 +86,20 @@ function handlePopupCardFormSubmit(cardInfo) {
             newCard.likes = addedCard.likes;
             const card = createCard(newCard);
             section.addItem(card.getElement());
-            newCardPopup.setSuccess();
+            newCardPopup.close()
         })
         .catch(err => console.log(err))
-        .finally(x => newCardPopup.close());
+        .finally(x => newCardPopup.resetButtonText());
 }
 
 function handlePopupAvatarFormSubmit(data) {
     api.updateAvatar({ avatar: data.link })
         .then(result => {
             userInfo.setAvatar(result.avatar);
-            avatarPopup.setSuccess();
+            avatarPopup.close();
         })
         .catch(err => console.log(err))
-        .finally(x => avatarPopup.close());
+        .finally(x => avatarPopup.resetButtonText());
 }
 
 function handleCreateNewCard() {
@@ -151,12 +151,12 @@ function hanbleCardSetLike(like) {
 function handleDeleteConfirm({ id }) {
     api.deleteCard(id)
         .then(()=>{
-            confirmPopup.setSuccess();
+            confirmPopup.close();
         })
         .catch(err => console.log(err))
         .finally(() => {
             document.getElementById(id).remove();
-            confirmPopup.close();
+            confirmPopup.resetButtonText();
         });
 }
 
